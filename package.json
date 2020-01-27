@@ -36,11 +36,12 @@
     "deploy": "yarn lint && gulp deploy"
   },
   "devDependencies": {
-    "ansi-colors": "^4.0.1",
-    "aws-sdk": "^2.478.0",
     "@babel/core": "^7.4.5",
     "@babel/preset-env": "^7.4.5",
+    "ansi-colors": "^4.0.1",
+    "aws-sdk": "^2.478.0",
     "babel-eslint": "^10.0.2",
+    "browser-sync": "^2.26.7",
     "del": "^4.1.1",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",

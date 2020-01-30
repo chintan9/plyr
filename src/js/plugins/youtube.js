@@ -3,52 +3,52 @@
 // ==========================================================================
 
 import ui from '../ui';
-import {createElement, replaceElement, toggleClass} from '../utils/elements';
-import {triggerEvent} from '../utils/events';
+import { createElement, replaceElement, toggleClass } from '../utils/elements';
+import { triggerEvent } from '../utils/events';
 import fetch from '../utils/fetch';
 import is from '../utils/is';
 import loadImage from '../utils/load-image';
 import loadScript from '../utils/load-script';
-import {extend} from '../utils/objects';
-import {format, generateId} from '../utils/strings';
-import {setAspectRatio} from '../utils/style';
+import { extend } from '../utils/objects';
+import { format, generateId } from '../utils/strings';
+import { setAspectRatio } from '../utils/style';
 
 // Parse YouTube ID from URL
 function parseId(url) {
-  if (is.empty(url)) {
-    return null;
-  }
+    if (is.empty(url)) {
+        return null;
+    }
 
-  const regex = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
-  return url.match(regex) ? RegExp.$2 : url;
+    const regex = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+    return url.match(regex) ? RegExp.$2 : url;
 }
 
 // Set playback state and trigger change (only on actual change)
 function assurePlaybackState(play) {
-  if (play && !this.embed.hasPlayed) {
-    this.embed.hasPlayed = true;
-  }
-  if (this.media.paused === play) {
-    this.media.paused = !play;
-    triggerEvent.call(this, this.media, play ? 'play' : 'pause');
-  }
+    if (play && !this.embed.hasPlayed) {
+        this.embed.hasPlayed = true;
+    }
+    if (this.media.paused === play) {
+        this.media.paused = !play;
+        triggerEvent.call(this, this.media, play ? 'play' : 'pause');
+    }
 }
 
 function getHost(config) {
-  if (config.noCookie) {
-    return 'https://www.youtube-nocookie.com';
-  }
+    if (config.noCookie) {
+        return 'https://www.youtube-nocookie.com';
+    }
 
-  if (window.location.protocol === 'http:') {
-    return 'http://www.youtube.com';
-  }
+    if (window.location.protocol === 'http:') {
+        return 'http://www.youtube.com';
+    }
 
-  // Use YouTube's default
-  return undefined;
+    // Use YouTube's default
+    return undefined;
 }
 
 const youtube = {
-  setup() {
+    setup() {
         // Add embed class for responsive
         toggleClass(this.elements.wrapper, this.config.classNames.embed, true);
 

@@ -1044,7 +1044,7 @@ const controls = {
     },
 
     // Set a list of available captions languages
-    setSpeedMenu(options) {
+    setSpeedMenu() {
         // Menu required
         if (!is.element(this.elements.settings.panels.speed)) {
             return;
@@ -1053,15 +1053,8 @@ const controls = {
         const type = 'speed';
         const list = this.elements.settings.panels.speed.querySelector('[role="menu"]');
 
-        // Set the speed options
-        if (is.array(options)) {
-            this.options.speed = options;
-        } else if (this.isHTML5 || this.isVimeo) {
-            this.options.speed = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2];
-        }
-
-        // Set options if passed and filter based on config
-        this.options.speed = this.options.speed.filter(speed => this.config.speed.options.includes(speed));
+        // Filter out invalid speeds
+        this.options.speed = this.options.speed.filter(o => o >= this.minimumSpeed && o <= this.maximumSpeed);
 
         // Toggle the pane and tab
         const toggle = !is.empty(this.options.speed) && this.options.speed.length > 1;
@@ -1581,6 +1574,11 @@ const controls = {
                     href: this.download,
                     target: '_blank',
                 });
+
+                // Set download attribute for HTML5 only
+                if (this.isHTML5) {
+                    attributes.download = '';
+                }
 
                 const { download } = this.config.urls;
 

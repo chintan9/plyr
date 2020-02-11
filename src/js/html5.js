@@ -42,12 +42,15 @@ const html5 = {
             .filter(Boolean);
     },
 
-    extend() {
+    setup() {
         if (!this.isHTML5) {
             return;
         }
 
         const player = this;
+
+        // Set speed options from config
+        player.options.speed = player.config.speed.options;
 
         // Set aspect ratio if fixed
         if (!is.empty(this.config.ratio)) {
@@ -65,6 +68,10 @@ const html5 = {
                 return source && Number(source.getAttribute('size'));
             },
             set(input) {
+                if (player.quality === input) {
+                    return;
+                }
+
                 // If we're using an an external handler...
                 if (player.config.quality.forced && is.function(player.config.quality.onChange)) {
                     player.config.quality.onChange(input);
@@ -80,7 +87,7 @@ const html5 = {
                     }
 
                     // Get current state
-                    const { currentTime, paused, preload, readyState } = player.media;
+                    const { currentTime, paused, preload, readyState, playbackRate } = player.media;
 
                     // Set new source
                     player.media.src = source.getAttribute('src');
@@ -89,10 +96,7 @@ const html5 = {
                     if (preload !== 'none' || readyState) {
                         // Restore time
                         player.once('loadedmetadata', () => {
-                            if (player.currentTime === 0) {
-                                return;
-                            }
-
+                            player.speed = playbackRate;
                             player.currentTime = currentTime;
 
                             // Resume playing

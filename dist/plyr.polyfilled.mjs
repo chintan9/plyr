@@ -6762,6 +6762,154 @@ var browser = {
   isIos: /(iPad|iPhone|iPod)/gi.test(navigator.platform)
 };
 
+<<<<<<< HEAD
+=======
+// https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md
+// https://www.youtube.com/watch?v=NPM6172J22g
+
+var supportsPassiveListeners = function () {
+  // Test via a getter in the options object to see if the passive property is accessed
+  var supported = false;
+
+  try {
+    var options = Object.defineProperty({}, 'passive', {
+      get: function get() {
+        supported = true;
+        return null;
+      }
+    });
+    window.addEventListener('test', null, options);
+    window.removeEventListener('test', null, options);
+  } catch (e) {// Do nothing
+  }
+
+  return supported;
+}(); // Toggle event listener
+
+
+function toggleListener(element, event, callback) {
+  var _this = this;
+
+  var toggle = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+  var passive = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : true;
+  var capture = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : false;
+
+  // Bail if no element, event, or callback
+  if (!element || !('addEventListener' in element) || is$1.empty(event) || !is$1.function(callback)) {
+    return;
+  } // Allow multiple events
+
+
+  var events = event.split(' '); // Build options
+  // Default to just the capture boolean for browsers with no passive listener support
+
+  var options = capture; // If passive events listeners are supported
+
+  if (supportsPassiveListeners) {
+    options = {
+      // Whether the listener can be passive (i.e. default never prevented)
+      passive: passive,
+      // Whether the listener is a capturing listener or not
+      capture: capture
+    };
+  } // If a single node is passed, bind the event listener
+
+
+  events.forEach(function (type) {
+    if (_this && _this.eventListeners && toggle) {
+      // Cache event listener
+      _this.eventListeners.push({
+        element: element,
+        type: type,
+        callback: callback,
+        options: options
+      });
+    }
+
+    element[toggle ? 'addEventListener' : 'removeEventListener'](type, callback, options);
+  });
+} // Bind event handler
+
+function on(element) {
+  var events = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+  var callback = arguments.length > 2 ? arguments[2] : undefined;
+  var passive = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
+  var capture = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : false;
+  toggleListener.call(this, element, events, callback, true, passive, capture);
+} // Unbind event handler
+
+function off(element) {
+  var events = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+  var callback = arguments.length > 2 ? arguments[2] : undefined;
+  var passive = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
+  var capture = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : false;
+  toggleListener.call(this, element, events, callback, false, passive, capture);
+} // Bind once-only event handler
+
+function once(element) {
+  var _this2 = this;
+
+  var events = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+  var callback = arguments.length > 2 ? arguments[2] : undefined;
+  var passive = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
+  var capture = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : false;
+
+  var onceCallback = function onceCallback() {
+    off(element, events, onceCallback, passive, capture);
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    callback.apply(_this2, args);
+  };
+
+  toggleListener.call(this, element, events, onceCallback, true, passive, capture);
+} // Trigger event
+
+function triggerEvent(element) {
+  var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+  var bubbles = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+  var detail = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
+
+  // Bail if no element
+  if (!is$1.element(element) || is$1.empty(type)) {
+    return;
+  } // Create and dispatch the event
+
+
+  var event = new CustomEvent(type, {
+    bubbles: bubbles,
+    detail: _objectSpread2({}, detail, {
+      plyr: this
+    })
+  }); // Dispatch the event
+
+  element.dispatchEvent(event);
+} // Unbind all cached event listeners
+
+function unbindListeners() {
+  if (this && this.eventListeners) {
+    this.eventListeners.forEach(function (item) {
+      var element = item.element,
+          type = item.type,
+          callback = item.callback,
+          options = item.options;
+      element.removeEventListener(type, callback, options);
+    });
+    this.eventListeners = [];
+  }
+} // Run method when / if player is ready
+
+function ready() {
+  var _this3 = this;
+
+  return new Promise(function (resolve) {
+    return _this3.ready ? setTimeout(resolve, 0) : on.call(_this3, _this3.elements.container, 'ready', resolve);
+  }).then(function () {});
+}
+
+>>>>>>> master
 // `Array.prototype.{ reduce, reduceRight }` methods implementation
 var createMethod$5 = function (IS_RIGHT) {
   return function (that, callbackfn, argumentsLength, memo) {
@@ -7473,6 +7621,7 @@ var html5 = {
         return source && Number(source.getAttribute('size'));
       },
       set: function set(input) {
+<<<<<<< HEAD
         if (player.quality === input) {
           return;
         } // If we're using an an external handler...
@@ -7483,11 +7632,28 @@ var html5 = {
         } else {
           // Get sources
           var sources = html5.getSources.call(player); // Get first match for requested size
+=======
+        // If we're using an an external handler...
+        if (player.config.quality.forced && is$1.function(player.config.quality.onChange)) {
+          player.config.quality.onChange(input);
+        } else {
+          // Get sources
+          var sources = html5.getSources.call(player); // Get first match for requested size
 
           var source = sources.find(function (s) {
             return Number(s.getAttribute('size')) === input;
           }); // No matching source found
 
+          if (!source) {
+            return;
+          } // Get current state
+>>>>>>> master
+
+          var source = sources.find(function (s) {
+            return Number(s.getAttribute('size')) === input;
+          }); // No matching source found
+
+<<<<<<< HEAD
           if (!source) {
             return;
           } // Get current state
@@ -7508,6 +7674,25 @@ var html5 = {
               player.speed = playbackRate;
               player.currentTime = currentTime; // Resume playing
 
+=======
+          var _player$media = player.media,
+              currentTime = _player$media.currentTime,
+              paused = _player$media.paused,
+              preload = _player$media.preload,
+              readyState = _player$media.readyState; // Set new source
+
+          player.media.src = source.getAttribute('src'); // Prevent loading if preload="none" and the current source isn't loaded (#1044)
+
+          if (preload !== 'none' || readyState) {
+            // Restore time
+            player.once('loadedmetadata', function () {
+              if (player.currentTime === 0) {
+                return;
+              }
+
+              player.currentTime = currentTime; // Resume playing
+
+>>>>>>> master
               if (!paused) {
                 player.play();
               }
@@ -9976,7 +10161,10 @@ var defaults$1 = {
   // Quality default
   quality: {
     default: 576,
+<<<<<<< HEAD
     // The options to display in the UI, if available for the source media
+=======
+>>>>>>> master
     options: [4320, 2880, 2160, 1440, 1080, 720, 576, 480, 360, 240],
     forced: false,
     onChange: null
@@ -10528,7 +10716,11 @@ function () {
         this.toggleFallback(true);
       } else if (!this.prefix) {
         this.target.requestFullscreen({
+<<<<<<< HEAD
           navigationUI: 'hide'
+=======
+          navigationUI: "hide"
+>>>>>>> master
         });
       } else if (!is$1.empty(this.prefix)) {
         this.target["".concat(this.prefix, "Request").concat(this.property)]();
@@ -11810,13 +12002,12 @@ var loadjs_umd = createCommonjsModule(function (module, exports) {
           async = args.async,
           maxTries = (args.numRetries || 0) + 1,
           beforeCallbackFn = args.before || devnull,
-          pathname = path.replace(/[\?|#].*$/, ''),
           pathStripped = path.replace(/^(css|img)!/, ''),
           isLegacyIECss,
           e;
       numTries = numTries || 0;
 
-      if (/(^css!|\.css$)/.test(pathname)) {
+      if (/(^css!|\.css$)/.test(path)) {
         // css
         e = doc.createElement('link');
         e.rel = 'stylesheet';
@@ -11829,7 +12020,7 @@ var loadjs_umd = createCommonjsModule(function (module, exports) {
           e.rel = 'preload';
           e.as = 'style';
         }
-      } else if (/(^img!|\.(png|gif|jpg|svg|webp)$)/.test(pathname)) {
+      } else if (/(^img!|\.(png|gif|jpg|svg)$)/.test(path)) {
         // image
         e = doc.createElement('img');
         e.src = pathStripped;

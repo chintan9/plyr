@@ -159,7 +159,11 @@ import Plyr from 'plyr';
 const player = new Plyr('#player');
 ```
 
+<<<<<<< HEAD
 Alternatively you can include the `plyr.js` script before the closing `</body>`
+=======
+Alertnatively you can include the `plyr.js` script before the closing `</body>`
+>>>>>>> master
 tag and then in your JS create a new instance of Plyr as below.
 
 ```html
@@ -207,7 +211,11 @@ the default CSS, you can use the following:
 The SVG sprite is loaded automatically from our CDN (provided by
 [Fastly](https://www.fastly.com/)). To change this, see the [options](#options)
 below. For reference, the CDN hosted SVG sprite can be found at
+<<<<<<< HEAD
 `https://cdn.plyr.io/3.5.7/plyr.svg`.
+=======
+`https://cdn.plyr.io/3.5.6/plyr.svg`.
+>>>>>>> master
 
 # Ads
 
@@ -876,7 +884,14 @@ how you're using Plyr 😎
 
 # Useful links and credits
 
+<<<<<<< HEAD
 -   [PayPal's Accessible HTML5 Video Player (which Plyr was originally ported from)](https://github.com/paypal/accessible-html5-video-player)
+=======
+Credit to the PayPal HTML5 Video player from which Plyr's caption functionality
+was originally ported from:
+
+-   [PayPal's Accessible HTML5 Video Player](https://github.com/paypal/accessible-html5-video-player)
+>>>>>>> master
 -   [An awesome guide for Plyr in Japanese!](http://syncer.jp/how-to-use-plyr-io)
     by [@arayutw](https://twitter.com/arayutw)
 

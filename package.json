@@ -58,7 +58,7 @@
     "gulp-clean-css": "^4.2.0",
     "gulp-filter": "^6.0.0",
     "gulp-header": "^2.0.7",
-    "gulp-imagemin": "^6.0.0",
+    "gulp-imagemin": "^7.1.0",
     "gulp-open": "^3.0.1",
     "gulp-plumber": "^1.2.1",
     "gulp-postcss": "^8.0.0",

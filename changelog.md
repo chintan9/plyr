@@ -1,3 +1,12 @@
+### v3.5.10
+
+-   iOS volume display fix
+
+### v3.5.9
+
+-   Fix for regression with volume control width
+-   Ensure poster image is not downloaded again for HTML5 videos
+
 ### v3.5.8
 
 -   Added `flex-direction` property to fix some issues introduced in v3.5.7 when using custom CSS

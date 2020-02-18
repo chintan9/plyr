@@ -1,8 +1,11 @@
 typeof navigator === "object" && (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-  typeof define === 'function' && define.amd ? define('Plyr', factory) :
-  (global = global || self, global.Plyr = factory());
-}(this, (function () { 'use strict';
+  typeof exports === 'object' &&typeof module !== 'undefined'
+      ? module.exports = factory()
+      : typeof define === 'function' && define.amd
+            ? define('Plyr', factory)
+            : (global = global || self, global.Plyr = factory());
+}(this, (function () {
+  'use strict';
 
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
@@ -15,24 +18,27 @@ typeof navigator === "object" && (function (global, factory) {
       var descriptor = props[i];
       descriptor.enumerable = descriptor.enumerable || false;
       descriptor.configurable = true;
-      if ("value" in descriptor) descriptor.writable = true;
+      if ("value" in descriptor)
+        descriptor.writable = true;
       Object.defineProperty(target, descriptor.key, descriptor);
     }
   }
 
   function _createClass(Constructor, protoProps, staticProps) {
-    if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-    if (staticProps) _defineProperties(Constructor, staticProps);
+    if (protoProps)
+      _defineProperties(Constructor.prototype, protoProps);
+    if (staticProps)
+      _defineProperties(Constructor, staticProps);
     return Constructor;
   }
 
   function _defineProperty(obj, key, value) {
     if (key in obj) {
       Object.defineProperty(obj, key, {
-        value: value,
-        enumerable: true,
-        configurable: true,
-        writable: true
+        value : value,
+        enumerable : true,
+        configurable : true,
+        writable : true
       });
     } else {
       obj[key] = value;
@@ -46,9 +52,10 @@ typeof navigator === "object" && (function (global, factory) {
 
     if (Object.getOwnPropertySymbols) {
       var symbols = Object.getOwnPropertySymbols(object);
-      if (enumerableOnly) symbols = symbols.filter(function (sym) {
-        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-      });
+      if (enumerableOnly)
+        symbols = symbols.filter(function(sym) {
+          return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+        });
       keys.push.apply(keys, symbols);
     }
 
@@ -60,14 +67,16 @@ typeof navigator === "object" && (function (global, factory) {
       var source = arguments[i] != null ? arguments[i] : {};
 
       if (i % 2) {
-        ownKeys(Object(source), true).forEach(function (key) {
+        ownKeys(Object(source), true).forEach(function(key) {
           _defineProperty(target, key, source[key]);
         });
       } else if (Object.getOwnPropertyDescriptors) {
-        Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+        Object.defineProperties(target,
+                                Object.getOwnPropertyDescriptors(source));
       } else {
-        ownKeys(Object(source)).forEach(function (key) {
-          Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+        ownKeys(Object(source)).forEach(function(key) {
+          Object.defineProperty(target, key,
+                                Object.getOwnPropertyDescriptor(source, key));
         });
       }
     }
@@ -76,31 +85,38 @@ typeof navigator === "object" && (function (global, factory) {
   }
 
   function _slicedToArray(arr, i) {
-    return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
+    return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) ||
+           _nonIterableRest();
   }
 
   function _toConsumableArray(arr) {
-    return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread();
+    return _arrayWithoutHoles(arr) || _iterableToArray(arr) ||
+           _nonIterableSpread();
   }
 
   function _arrayWithoutHoles(arr) {
     if (Array.isArray(arr)) {
-      for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];
+      for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++)
+        arr2[i] = arr[i];
 
       return arr2;
     }
   }
 
   function _arrayWithHoles(arr) {
-    if (Array.isArray(arr)) return arr;
+    if (Array.isArray(arr))
+      return arr;
   }
 
   function _iterableToArray(iter) {
-    if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);
+    if (Symbol.iterator in Object(iter) ||
+        Object.prototype.toString.call(iter) === "[object Arguments]")
+      return Array.from(iter);
   }
 
   function _iterableToArrayLimit(arr, i) {
-    if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) {
+    if (!(Symbol.iterator in Object(arr) ||
+          Object.prototype.toString.call(arr) === "[object Arguments]")) {
       return;
     }
 
@@ -110,19 +126,23 @@ typeof navigator === "object" && (function (global, factory) {
     var _e = undefined;
 
     try {
-      for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+      for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done);
+           _n = true) {
         _arr.push(_s.value);
 
-        if (i && _arr.length === i) break;
+        if (i && _arr.length === i)
+          break;
       }
     } catch (err) {
       _d = true;
       _e = err;
     } finally {
       try {
-        if (!_n && _i["return"] != null) _i["return"]();
+        if (!_n && _i["return"] != null)
+          _i["return"]();
       } finally {
-        if (_d) throw _e;
+        if (_d)
+          throw _e;
       }
     }
 
@@ -138,11 +158,12 @@ typeof navigator === "object" && (function (global, factory) {
   }
 
   var defaults = {
-    addCSS: true,
-    // Add CSS to the element to improve usability (required here or in your CSS!)
-    thumbWidth: 15,
+    addCSS : true,
+    // Add CSS to the element to improve usability (required here or in your
+    // CSS!)
+    thumbWidth : 15,
     // The width of the thumb handle
-    watch: true // Watch for new elements that match a string target
+    watch : true // Watch for new elements that match a string target
 
   };
 
@@ -153,7 +174,7 @@ typeof navigator === "object" && (function (global, factory) {
       return Array.from(document.querySelectorAll(selector)).includes(this);
     }
 
-    var matches =  match;
+    var matches = match;
     return matches.call(element, selector);
   }
 
@@ -162,7 +183,6 @@ typeof navigator === "object" && (function (global, factory) {
     if (!element || !type) {
       return;
     } // Create and dispatch the event
-
 
     var event = new Event(type); // Dispatch the event
 
@@ -173,69 +193,62 @@ typeof navigator === "object" && (function (global, factory) {
   // Type checking utils
   // ==========================================================================
   var getConstructor = function getConstructor(input) {
-    return input !== null && typeof input !== 'undefined' ? input.constructor : null;
+    return input !== null && typeof input !== 'undefined' ? input.constructor
+                                                          : null;
   };
 
   var instanceOf = function instanceOf(input, constructor) {
     return Boolean(input && constructor && input instanceof constructor);
   };
 
-  var isNullOrUndefined = function isNullOrUndefined(input) {
-    return input === null || typeof input === 'undefined';
-  };
+  var isNullOrUndefined = function isNullOrUndefined(
+      input) { return input === null || typeof input === 'undefined'; };
 
-  var isObject = function isObject(input) {
-    return getConstructor(input) === Object;
-  };
+  var isObject = function isObject(
+      input) { return getConstructor(input) === Object; };
 
   var isNumber = function isNumber(input) {
     return getConstructor(input) === Number && !Number.isNaN(input);
   };
 
-  var isString = function isString(input) {
-    return getConstructor(input) === String;
-  };
+  var isString = function isString(
+      input) { return getConstructor(input) === String; };
 
-  var isBoolean = function isBoolean(input) {
-    return getConstructor(input) === Boolean;
-  };
+  var isBoolean = function isBoolean(
+      input) { return getConstructor(input) === Boolean; };
 
-  var isFunction = function isFunction(input) {
-    return getConstructor(input) === Function;
-  };
+  var isFunction = function isFunction(
+      input) { return getConstructor(input) === Function; };
 
-  var isArray = function isArray(input) {
-    return Array.isArray(input);
-  };
+  var isArray = function isArray(input) { return Array.isArray(input); };
 
-  var isNodeList = function isNodeList(input) {
-    return instanceOf(input, NodeList);
-  };
+  var isNodeList = function isNodeList(
+      input) { return instanceOf(input, NodeList); };
 
-  var isElement = function isElement(input) {
-    return instanceOf(input, Element);
-  };
+  var isElement = function isElement(
+      input) { return instanceOf(input, Element); };
 
-  var isEvent = function isEvent(input) {
-    return instanceOf(input, Event);
-  };
+  var isEvent = function isEvent(input) { return instanceOf(input, Event); };
 
   var isEmpty = function isEmpty(input) {
-    return isNullOrUndefined(input) || (isString(input) || isArray(input) || isNodeList(input)) && !input.length || isObject(input) && !Object.keys(input).length;
+    return isNullOrUndefined(input) ||
+           (isString(input) || isArray(input) || isNodeList(input)) &&
+               !input.length ||
+           isObject(input) && !Object.keys(input).length;
   };
 
   var is = {
-    nullOrUndefined: isNullOrUndefined,
-    object: isObject,
-    number: isNumber,
-    string: isString,
-    boolean: isBoolean,
-    function: isFunction,
-    array: isArray,
-    nodeList: isNodeList,
-    element: isElement,
-    event: isEvent,
-    empty: isEmpty
+    nullOrUndefined : isNullOrUndefined,
+    object : isObject,
+    number : isNumber,
+    string : isString,
+    boolean : isBoolean,
+    function : isFunction,
+    array : isArray,
+    nodeList : isNodeList,
+    element : isElement,
+    event : isEvent,
+    empty : isEmpty
   };
 
   // Get the number of decimal places
@@ -247,8 +260,9 @@ typeof navigator === "object" && (function (global, factory) {
     }
 
     return Math.max(0, // Number of digits right of decimal point.
-    (match[1] ? match[1].length : 0) - ( // Adjust for scientific notation.
-    match[2] ? +match[2] : 0));
+                    (match[1] ? match[1].length : 0) -
+                        ( // Adjust for scientific notation.
+                            match[2] ? +match[2] : 0));
   } // Round to the nearest step
 
   function round(number, step) {
@@ -261,275 +275,286 @@ typeof navigator === "object" && (function (global, factory) {
   }
 
   var RangeTouch =
-  /*#__PURE__*/
-  function () {
-    /**
-     * Setup a new instance
-     * @param {String|Element} target
-     * @param {Object} options
-     */
-    function RangeTouch(target, options) {
-      _classCallCheck(this, RangeTouch);
+      /*#__PURE__*/
+      function() {
+        /**
+         * Setup a new instance
+         * @param {String|Element} target
+         * @param {Object} options
+         */
+        function RangeTouch(target, options) {
+          _classCallCheck(this, RangeTouch);
 
-      if (is.element(target)) {
-        // An Element is passed, use it directly
-        this.element = target;
-      } else if (is.string(target)) {
-        // A CSS Selector is passed, fetch it from the DOM
-        this.element = document.querySelector(target);
-      }
+          if (is.element(target)) {
+            // An Element is passed, use it directly
+            this.element = target;
+          } else if (is.string(target)) {
+            // A CSS Selector is passed, fetch it from the DOM
+            this.element = document.querySelector(target);
+          }
 
-      if (!is.element(this.element) || !is.empty(this.element.rangeTouch)) {
-        return;
-      }
+          if (!is.element(this.element) || !is.empty(this.element.rangeTouch)) {
+            return;
+          }
 
-      this.config = Object.assign({}, defaults, options);
-      this.init();
-    }
-
-    _createClass(RangeTouch, [{
-      key: "init",
-      value: function init() {
-        // Bail if not a touch enabled device
-        if (!RangeTouch.enabled) {
-          return;
-        } // Add useful CSS
-
-
-        if (this.config.addCSS) {
-          // TODO: Restore original values on destroy
-          this.element.style.userSelect = 'none';
-          this.element.style.webKitUserSelect = 'none';
-          this.element.style.touchAction = 'manipulation';
+          this.config = Object.assign({}, defaults, options);
+          this.init();
         }
 
-        this.listeners(true);
-        this.element.rangeTouch = this;
-      }
-    }, {
-      key: "destroy",
-      value: function destroy() {
-        // Bail if not a touch enabled device
-        if (!RangeTouch.enabled) {
-          return;
-        }
+        _createClass(
+            RangeTouch,
+            [
+              {
+                key : "init",
+                value : function init() {
+                  // Bail if not a touch enabled device
+                  if (!RangeTouch.enabled) {
+                    return;
+                  } // Add useful CSS
 
-        this.listeners(false);
-        this.element.rangeTouch = null;
-      }
-    }, {
-      key: "listeners",
-      value: function listeners(toggle) {
-        var _this = this;
+                  if (this.config.addCSS) {
+                    // TODO: Restore original values on destroy
+                    this.element.style.userSelect = 'none';
+                    this.element.style.webKitUserSelect = 'none';
+                    this.element.style.touchAction = 'manipulation';
+                  }
 
-        var method = toggle ? 'addEventListener' : 'removeEventListener'; // Listen for events
+                  this.listeners(true);
+                  this.element.rangeTouch = this;
+                }
+              },
+              {
+                key : "destroy",
+                value : function destroy() {
+                  // Bail if not a touch enabled device
+                  if (!RangeTouch.enabled) {
+                    return;
+                  }
 
-        ['touchstart', 'touchmove', 'touchend'].forEach(function (type) {
-          _this.element[method](type, function (event) {
-            return _this.set(event);
-          }, false);
-        });
-      }
-      /**
-       * Get the value based on touch position
-       * @param {Event} event
-       */
+                  this.listeners(false);
+                  this.element.rangeTouch = null;
+                }
+              },
+              {
+                key : "listeners",
+                value : function listeners(toggle) {
+                  var _this = this;
 
-    }, {
-      key: "get",
-      value: function get(event) {
-        if (!RangeTouch.enabled || !is.event(event)) {
-          return null;
-        }
+                  var method = toggle
+                                   ? 'addEventListener'
+                                   : 'removeEventListener'; // Listen for events
 
-        var input = event.target;
-        var touch = event.changedTouches[0];
-        var min = parseFloat(input.getAttribute('min')) || 0;
-        var max = parseFloat(input.getAttribute('max')) || 100;
-        var step = parseFloat(input.getAttribute('step')) || 1;
-        var delta = max - min; // Calculate percentage
+                  ['touchstart', 'touchmove', 'touchend'].forEach(function(
+                      type) {
+                    _this.element[method](
+                        type, function(event) { return _this.set(event); },
+                        false);
+                  });
+                }
+                /**
+                 * Get the value based on touch position
+                 * @param {Event} event
+                 */
 
-        var percent;
-        var clientRect = input.getBoundingClientRect();
-        var thumbWidth = 100 / clientRect.width * (this.config.thumbWidth / 2) / 100; // Determine left percentage
+              },
+              {
+                key : "get",
+                value : function get(event) {
+                  if (!RangeTouch.enabled || !is.event(event)) {
+                    return null;
+                  }
 
-        percent = 100 / clientRect.width * (touch.clientX - clientRect.left); // Don't allow outside bounds
+                  var input = event.target;
+                  var touch = event.changedTouches[0];
+                  var min = parseFloat(input.getAttribute('min')) || 0;
+                  var max = parseFloat(input.getAttribute('max')) || 100;
+                  var step = parseFloat(input.getAttribute('step')) || 1;
+                  var delta = max - min; // Calculate percentage
 
-        if (percent < 0) {
-          percent = 0;
-        } else if (percent > 100) {
-          percent = 100;
-        } // Factor in the thumb offset
+                  var percent;
+                  var clientRect = input.getBoundingClientRect();
+                  var thumbWidth = 100 / clientRect.width *
+                                   (this.config.thumbWidth / 2) /
+                                   100; // Determine left percentage
 
+                  percent = 100 / clientRect.width *
+                            (touch.clientX -
+                             clientRect.left); // Don't allow outside bounds
 
-        if (percent < 50) {
-          percent -= (100 - percent * 2) * thumbWidth;
-        } else if (percent > 50) {
-          percent += (percent - 50) * 2 * thumbWidth;
-        } // Find the closest step to the mouse position
+                  if (percent < 0) {
+                    percent = 0;
+                  } else if (percent > 100) {
+                    percent = 100;
+                  } // Factor in the thumb offset
 
+                  if (percent < 50) {
+                    percent -= (100 - percent * 2) * thumbWidth;
+                  } else if (percent > 50) {
+                    percent += (percent - 50) * 2 * thumbWidth;
+                  } // Find the closest step to the mouse position
 
-        return min + round(delta * (percent / 100), step);
-      }
-      /**
-       * Update range value based on position
-       * @param {Event} event
-       */
+                  return min + round(delta * (percent / 100), step);
+                }
+                /**
+                 * Update range value based on position
+                 * @param {Event} event
+                 */
 
-    }, {
-      key: "set",
-      value: function set(event) {
-        if (!RangeTouch.enabled || !is.event(event) || event.target.disabled) {
-          return;
-        } // Prevent text highlight on iOS
+              },
+              {
+                key : "set",
+                value : function set(event) {
+                  if (!RangeTouch.enabled || !is.event(event) ||
+                      event.target.disabled) {
+                    return;
+                  } // Prevent text highlight on iOS
 
+                  event.preventDefault(); // Set value
 
-        event.preventDefault(); // Set value
+                  event.target.value = this.get(event); // Trigger event
 
-        event.target.value = this.get(event); // Trigger event
+                  trigger(event.target,
+                          event.type === 'touchend' ? 'change' : 'input');
+                }
+              }
+            ],
+            [
+              {
+                key : "setup",
 
-        trigger(event.target, event.type === 'touchend' ? 'change' : 'input');
-      }
-    }], [{
-      key: "setup",
+                /**
+                 * Setup multiple instances
+                 * @param {String|Element|NodeList|Array} target
+                 * @param {Object} options
+                 */
+                value : function setup(target) {
+                  var options =
+                      arguments.length > 1 && arguments[1] !== undefined
+                          ? arguments[1]
+                          : {};
+                  var targets = null;
 
-      /**
-       * Setup multiple instances
-       * @param {String|Element|NodeList|Array} target
-       * @param {Object} options
-       */
-      value: function setup(target) {
-        var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-        var targets = null;
+                  if (is.empty(target) || is.string(target)) {
+                    targets = Array.from(
+                        document.querySelectorAll(is.string(target)
+                                                      ? target
+                                                      : 'input[type="range"]'));
+                  } else if (is.element(target)) {
+                    targets = [ target ];
+                  } else if (is.nodeList(target)) {
+                    targets = Array.from(target);
+                  } else if (is.array(target)) {
+                    targets = target.filter(is.element);
+                  }
 
-        if (is.empty(target) || is.string(target)) {
-          targets = Array.from(document.querySelectorAll(is.string(target) ? target : 'input[type="range"]'));
-        } else if (is.element(target)) {
-          targets = [target];
-        } else if (is.nodeList(target)) {
-          targets = Array.from(target);
-        } else if (is.array(target)) {
-          targets = target.filter(is.element);
-        }
+                  if (is.empty(targets)) {
+                    return null;
+                  }
 
-        if (is.empty(targets)) {
-          return null;
-        }
+                  var config = Object.assign({}, defaults, options);
 
-        var config = Object.assign({}, defaults, options);
+                  if (is.string(target) && config.watch) {
+                    // Create an observer instance
+                    var observer = new MutationObserver(function(mutations) {
+                      Array.from(mutations).forEach(function(mutation) {
+                        Array.from(mutation.addedNodes).forEach(function(node) {
+                          if (!is.element(node) || !matches(node, target)) {
+                            return;
+                          } // eslint-disable-next-line no-unused-vars
 
-        if (is.string(target) && config.watch) {
-          // Create an observer instance
-          var observer = new MutationObserver(function (mutations) {
-            Array.from(mutations).forEach(function (mutation) {
-              Array.from(mutation.addedNodes).forEach(function (node) {
-                if (!is.element(node) || !matches(node, target)) {
-                  return;
-                } // eslint-disable-next-line no-unused-vars
+                          var range = new RangeTouch(node, config);
+                        });
+                      });
+                    }); // Pass in the target node, as well as the observer
+                        // options
 
+                    observer.observe(document.body,
+                                     {childList : true, subtree : true});
+                  }
 
-                var range = new RangeTouch(node, config);
-              });
-            });
-          }); // Pass in the target node, as well as the observer options
+                  return targets.map(function(
+                      t) { return new RangeTouch(t, options); });
+                }
+              },
+              {
+                key : "enabled",
+                get : function
+                    get() { return 'ontouchstart' in document.documentElement; }
+              }
+            ]);
 
-          observer.observe(document.body, {
-            childList: true,
-            subtree: true
-          });
-        }
-
-        return targets.map(function (t) {
-          return new RangeTouch(t, options);
-        });
-      }
-    }, {
-      key: "enabled",
-      get: function get() {
-        return 'ontouchstart' in document.documentElement;
-      }
-    }]);
-
-    return RangeTouch;
-  }();
+        return RangeTouch;
+      }();
 
   // ==========================================================================
   // Type checking utils
   // ==========================================================================
   var getConstructor$1 = function getConstructor(input) {
-    return input !== null && typeof input !== 'undefined' ? input.constructor : null;
+    return input !== null && typeof input !== 'undefined' ? input.constructor
+                                                          : null;
   };
 
   var instanceOf$1 = function instanceOf(input, constructor) {
     return Boolean(input && constructor && input instanceof constructor);
   };
 
-  var isNullOrUndefined$1 = function isNullOrUndefined(input) {
-    return input === null || typeof input === 'undefined';
-  };
+  var isNullOrUndefined$1 = function isNullOrUndefined(
+      input) { return input === null || typeof input === 'undefined'; };
 
-  var isObject$1 = function isObject(input) {
-    return getConstructor$1(input) === Object;
-  };
+  var isObject$1 = function isObject(
+      input) { return getConstructor$1(input) === Object; };
 
   var isNumber$1 = function isNumber(input) {
     return getConstructor$1(input) === Number && !Number.isNaN(input);
   };
 
-  var isString$1 = function isString(input) {
-    return getConstructor$1(input) === String;
-  };
+  var isString$1 = function isString(
+      input) { return getConstructor$1(input) === String; };
 
-  var isBoolean$1 = function isBoolean(input) {
-    return getConstructor$1(input) === Boolean;
-  };
+  var isBoolean$1 = function isBoolean(
+      input) { return getConstructor$1(input) === Boolean; };
 
-  var isFunction$1 = function isFunction(input) {
-    return getConstructor$1(input) === Function;
-  };
+  var isFunction$1 = function isFunction(
+      input) { return getConstructor$1(input) === Function; };
 
-  var isArray$1 = function isArray(input) {
-    return Array.isArray(input);
-  };
+  var isArray$1 = function isArray(input) { return Array.isArray(input); };
 
-  var isWeakMap = function isWeakMap(input) {
-    return instanceOf$1(input, WeakMap);
-  };
+  var isWeakMap = function isWeakMap(
+      input) { return instanceOf$1(input, WeakMap); };
 
-  var isNodeList$1 = function isNodeList(input) {
-    return instanceOf$1(input, NodeList);
-  };
+  var isNodeList$1 = function isNodeList(
+      input) { return instanceOf$1(input, NodeList); };
 
-  var isElement$1 = function isElement(input) {
-    return instanceOf$1(input, Element);
-  };
+  var isElement$1 = function isElement(
+      input) { return instanceOf$1(input, Element); };
 
-  var isTextNode = function isTextNode(input) {
-    return getConstructor$1(input) === Text;
-  };
+  var isTextNode = function isTextNode(
+      input) { return getConstructor$1(input) === Text; };
 
-  var isEvent$1 = function isEvent(input) {
-    return instanceOf$1(input, Event);
-  };
+  var isEvent$1 = function isEvent(
+      input) { return instanceOf$1(input, Event); };
 
-  var isKeyboardEvent = function isKeyboardEvent(input) {
-    return instanceOf$1(input, KeyboardEvent);
-  };
+  var isKeyboardEvent = function isKeyboardEvent(
+      input) { return instanceOf$1(input, KeyboardEvent); };
 
   var isCue = function isCue(input) {
-    return instanceOf$1(input, window.TextTrackCue) || instanceOf$1(input, window.VTTCue);
+    return instanceOf$1(input, window.TextTrackCue) ||
+           instanceOf$1(input, window.VTTCue);
   };
 
   var isTrack = function isTrack(input) {
-    return instanceOf$1(input, TextTrack) || !isNullOrUndefined$1(input) && isString$1(input.kind);
+    return instanceOf$1(input, TextTrack) ||
+           !isNullOrUndefined$1(input) && isString$1(input.kind);
   };
 
-  var isPromise = function isPromise(input) {
-    return instanceOf$1(input, Promise);
-  };
+  var isPromise = function isPromise(
+      input) { return instanceOf$1(input, Promise); };
 
   var isEmpty$1 = function isEmpty(input) {
-    return isNullOrUndefined$1(input) || (isString$1(input) || isArray$1(input) || isNodeList$1(input)) && !input.length || isObject$1(input) && !Object.keys(input).length;
+    return isNullOrUndefined$1(input) ||
+           (isString$1(input) || isArray$1(input) || isNodeList$1(input)) &&
+               !input.length ||
+           isObject$1(input) && !Object.keys(input).length;
   };
 
   var isUrl = function isUrl(input) {
@@ -538,11 +563,9 @@ typeof navigator === "object" && (function (global, factory) {
       return true;
     } // Must be string from here
 
-
     if (!isString$1(input)) {
       return false;
     } // Add the protocol if required
-
 
     var string = input;
 
@@ -558,43 +581,42 @@ typeof navigator === "object" && (function (global, factory) {
   };
 
   var is$1 = {
-    nullOrUndefined: isNullOrUndefined$1,
-    object: isObject$1,
-    number: isNumber$1,
-    string: isString$1,
-    boolean: isBoolean$1,
-    function: isFunction$1,
-    array: isArray$1,
-    weakMap: isWeakMap,
-    nodeList: isNodeList$1,
-    element: isElement$1,
-    textNode: isTextNode,
-    event: isEvent$1,
-    keyboardEvent: isKeyboardEvent,
-    cue: isCue,
-    track: isTrack,
-    promise: isPromise,
-    url: isUrl,
-    empty: isEmpty$1
+    nullOrUndefined : isNullOrUndefined$1,
+    object : isObject$1,
+    number : isNumber$1,
+    string : isString$1,
+    boolean : isBoolean$1,
+    function : isFunction$1,
+    array : isArray$1,
+    weakMap : isWeakMap,
+    nodeList : isNodeList$1,
+    element : isElement$1,
+    textNode : isTextNode,
+    event : isEvent$1,
+    keyboardEvent : isKeyboardEvent,
+    cue : isCue,
+    track : isTrack,
+    promise : isPromise,
+    url : isUrl,
+    empty : isEmpty$1
   };
 
   // ==========================================================================
-  var transitionEndEvent = function () {
+  var transitionEndEvent = function() {
     var element = document.createElement('span');
     var events = {
-      WebkitTransition: 'webkitTransitionEnd',
-      MozTransition: 'transitionend',
-      OTransition: 'oTransitionEnd otransitionend',
-      transition: 'transitionend'
+      WebkitTransition : 'webkitTransitionEnd',
+      MozTransition : 'transitionend',
+      OTransition : 'oTransitionEnd otransitionend',
+      transition : 'transitionend'
     };
-    var type = Object.keys(events).find(function (event) {
-      return element.style[event] !== undefined;
-    });
+    var type = Object.keys(events).find(function(
+        event) { return element.style[event] !== undefined; });
     return is$1.string(type) ? events[type] : false;
   }(); // Force repaint of element
 
   function repaint(element, delay) {
-    setTimeout(function () {
+    setTimeout(function() {
       try {
         // eslint-disable-next-line no-param-reassign
         element.hidden = true; // eslint-disable-next-line no-unused-expressions
@@ -602,7 +624,7 @@ typeof navigator === "object" && (function (global, factory) {
         element.offsetHeight; // eslint-disable-next-line no-param-reassign
 
         element.hidden = false;
-      } catch (e) {// Do nothing
+      } catch (e) { // Do nothing
       }
     }, delay);
   }
@@ -612,13 +634,14 @@ typeof navigator === "object" && (function (global, factory) {
   // Unfortunately, due to mixed support, UA sniffing is required
   // ==========================================================================
   var browser = {
-    isIE:
-    /* @cc_on!@ */
-     !!document.documentMode,
-    isEdge: window.navigator.userAgent.includes('Edge'),
-    isWebkit: 'WebkitAppearance' in document.documentElement.style && !/Edge/.test(navigator.userAgent),
-    isIPhone: /(iPhone|iPod)/gi.test(navigator.platform),
-    isIos: /(iPad|iPhone|iPod)/gi.test(navigator.platform)
+    isIE :
+        /* @cc_on!@ */
+        !!document.documentMode,
+    isEdge : window.navigator.userAgent.includes('Edge'),
+    isWebkit : 'WebkitAppearance' in document.documentElement.style &&
+                   !/Edge/.test(navigator.userAgent),
+    isIPhone : /(iPhone|iPod)/gi.test(navigator.platform),
+    isIos : /(iPad|iPhone|iPod)/gi.test(navigator.platform)
   };
 
   function cloneDeep(object) {
@@ -626,15 +649,18 @@ typeof navigator === "object" && (function (global, factory) {
   } // Get a nested value in an object
 
   function getDeep(object, path) {
-    return path.split('.').reduce(function (obj, key) {
-      return obj && obj[key];
-    }, object);
+    return path.split('.').reduce(function(obj,
+                                           key) { return obj && obj[key]; },
+                                  object);
   } // Deep extend destination object with N more objects
 
   function extend() {
-    var target = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    var target =
+        arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
-    for (var _len = arguments.length, sources = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+    for (var _len = arguments.length,
+             sources = new Array(_len > 1 ? _len - 1 : 0), _key = 1;
+         _key < _len; _key++) {
       sources[_key - 1] = arguments[_key];
     }
 
@@ -648,7 +674,7 @@ typeof navigator === "object" && (function (global, factory) {
       return target;
     }
 
-    Object.keys(source).forEach(function (key) {
+    Object.keys(source).forEach(function(key) {
       if (is$1.object(source[key])) {
         if (!Object.keys(target).includes(key)) {
           Object.assign(target, _defineProperty({}, key, {}));
@@ -659,22 +685,27 @@ typeof navigator === "object" && (function (global, factory) {
         Object.assign(target, _defineProperty({}, key, source[key]));
       }
     });
-    return extend.apply(void 0, [target].concat(sources));
+    return extend.apply(void 0, [ target ].concat(sources));
   }
 
   function wrap(elements, wrapper) {
     // Convert `elements` to an array, if necessary.
-    var targets = elements.length ? elements : [elements]; // Loops backwards to prevent having to clone the wrapper on the
+    var targets = elements.length ? elements : [
+      elements
+    ]; // Loops backwards to prevent having to clone the wrapper on the
     // first element (see `child` below).
 
-    Array.from(targets).reverse().forEach(function (element, index) {
-      var child = index > 0 ? wrapper.cloneNode(true) : wrapper; // Cache the current parent and sibling.
+    Array.from(targets).reverse().forEach(function(element, index) {
+      var child = index > 0 ? wrapper.cloneNode(true)
+                            : wrapper; // Cache the current parent and sibling.
 
       var parent = element.parentNode;
-      var sibling = element.nextSibling; // Wrap the element (is automatically removed from its current
+      var sibling = element.nextSibling; // Wrap the element (is automatically
+                                         // removed from its current
       // parent).
 
-      child.appendChild(element); // If the element had a sibling, insert the wrapper before
+      child.appendChild(
+          element); // If the element had a sibling, insert the wrapper before
       // the sibling to maintain the HTML structure; otherwise, just
       // append it to the parent.
 
@@ -692,19 +723,18 @@ typeof navigator === "object" && (function (global, factory) {
     } // Assume null and undefined attributes should be left out,
     // Setting them would otherwise convert them to "null" and "undefined"
 
+    Object.entries(attributes)
+        .filter(function(_ref) {
+          var _ref2 = _slicedToArray(_ref, 2), value = _ref2[1];
 
-    Object.entries(attributes).filter(function (_ref) {
-      var _ref2 = _slicedToArray(_ref, 2),
-          value = _ref2[1];
+          return !is$1.nullOrUndefined(value);
+        })
+        .forEach(function(_ref3) {
+          var _ref4 = _slicedToArray(_ref3, 2), key = _ref4[0],
+              value = _ref4[1];
 
-      return !is$1.nullOrUndefined(value);
-    }).forEach(function (_ref3) {
-      var _ref4 = _slicedToArray(_ref3, 2),
-          key = _ref4[0],
-          value = _ref4[1];
-
-      return element.setAttribute(key, value);
-    });
+          return element.setAttribute(key, value);
+        });
   } // Create a DocumentFragment
 
   function createElement(type, attributes, text) {
@@ -715,11 +745,9 @@ typeof navigator === "object" && (function (global, factory) {
       setAttributes(element, attributes);
     } // Add text node
 
-
     if (is$1.string(text)) {
       element.innerText = text;
     } // Return built element
-
 
     return element;
   } // Inaert an element after another
@@ -767,7 +795,8 @@ typeof navigator === "object" && (function (global, factory) {
   } // Replace element
 
   function replaceElement(newChild, oldChild) {
-    if (!is$1.element(oldChild) || !is$1.element(oldChild.parentNode) || !is$1.element(newChild)) {
+    if (!is$1.element(oldChild) || !is$1.element(oldChild.parentNode) ||
+        !is$1.element(newChild)) {
       return null;
     }
 
@@ -786,7 +815,7 @@ typeof navigator === "object" && (function (global, factory) {
 
     var attributes = {};
     var existing = extend({}, existingAttributes);
-    sel.split(',').forEach(function (s) {
+    sel.split(',').forEach(function(s) {
       // Remove whitespace
       var selector = s.trim();
       var className = selector.replace('.', '');
@@ -794,33 +823,33 @@ typeof navigator === "object" && (function (global, factory) {
 
       var parts = stripped.split('=');
 
-      var _parts = _slicedToArray(parts, 1),
-          key = _parts[0];
+      var _parts = _slicedToArray(parts, 1), key = _parts[0];
 
-      var value = parts.length > 1 ? parts[1].replace(/["']/g, '') : ''; // Get the first character
+      var value = parts.length > 1 ? parts[1].replace(/["']/g, '')
+                                   : ''; // Get the first character
 
       var start = selector.charAt(0);
 
       switch (start) {
-        case '.':
-          // Add to existing classname
-          if (is$1.string(existing.class)) {
-            attributes.class = "".concat(existing.class, " ").concat(className);
-          } else {
-            attributes.class = className;
-          }
+      case '.':
+        // Add to existing classname
+        if (is$1.string(existing.class)) {
+          attributes.class = "".concat(existing.class, " ").concat(className);
+        } else {
+          attributes.class = className;
+        }
 
-          break;
+        break;
 
-        case '#':
-          // ID selector
-          attributes.id = selector.replace('#', '');
-          break;
+      case '#':
+        // ID selector
+        attributes.id = selector.replace('#', '');
+        break;
 
-        case '[':
-          // Attribute selector
-          attributes[key] = value;
-          break;
+      case '[':
+        // Attribute selector
+        attributes[key] = value;
+        break;
       }
     });
     return extend(existing, attributes);
@@ -837,15 +866,14 @@ typeof navigator === "object" && (function (global, factory) {
       hide = !element.hidden;
     } // eslint-disable-next-line no-param-reassign
 
-
     element.hidden = hide;
-  } // Mirror Element.classList.toggle, with IE compatibility for "force" argument
+  } // Mirror Element.classList.toggle, with IE compatibility for "force"
+    // argument
 
   function toggleClass(element, className, force) {
     if (is$1.nodeList(element)) {
-      return Array.from(element).map(function (e) {
-        return toggleClass(e, className, force);
-      });
+      return Array.from(element).map(function(
+          e) { return toggleClass(e, className, force); });
     }
 
     if (is$1.element(element)) {
@@ -872,7 +900,7 @@ typeof navigator === "object" && (function (global, factory) {
       return Array.from(document.querySelectorAll(selector)).includes(this);
     }
 
-    var method =  match;
+    var method = match;
     return method.call(element, selector);
   } // Find all elements
 
@@ -885,17 +913,19 @@ typeof navigator === "object" && (function (global, factory) {
   } // Set focus and tab focus class
 
   function setFocus() {
-    var element = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-    var tabFocus = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+    var element = arguments.length > 0 && arguments[0] !== undefined
+                      ? arguments[0]
+                      : null;
+    var tabFocus = arguments.length > 1 && arguments[1] !== undefined
+                       ? arguments[1]
+                       : false;
 
     if (!is$1.element(element)) {
       return;
     } // Set regular focus
 
-
-    element.focus({
-      preventScroll: true
-    }); // If we want to mimic keyboard focus via tab
+    element.focus(
+        {preventScroll : true}); // If we want to mimic keyboard focus via tab
 
     if (tabFocus) {
       toggleClass(element, this.config.classNames.tabFocus);
@@ -903,31 +933,29 @@ typeof navigator === "object" && (function (global, factory) {
   }
 
   var defaultCodecs = {
-    'audio/ogg': 'vorbis',
-    'audio/wav': '1',
-    'video/webm': 'vp8, vorbis',
-    'video/mp4': 'avc1.42E01E, mp4a.40.2',
-    'video/ogg': 'theora'
+    'audio/ogg' : 'vorbis',
+    'audio/wav' : '1',
+    'video/webm' : 'vp8, vorbis',
+    'video/mp4' : 'avc1.42E01E, mp4a.40.2',
+    'video/ogg' : 'theora'
   }; // Check for feature support
 
-  var support = {
-    // Basic support
-    audio: 'canPlayType' in document.createElement('audio'),
-    video: 'canPlayType' in document.createElement('video'),
-    // Check for support
-    // Basic functionality vs full UI
-    check: function check(type, provider, playsinline) {
-      var canPlayInline = browser.isIPhone && playsinline && support.playsinline;
-      var api = support[type] || provider !== 'html5';
-      var ui = api && support.rangeInput && (type !== 'video' || !browser.isIPhone || canPlayInline);
-      return {
-        api: api,
-        ui: ui
-      };
-    },
-    // Picture-in-picture support
-    // Safari & Chrome only currently
-    pip: function () {
+var support = {
+  // Basic support
+  audio : 'canPlayType' in document.createElement('audio'),
+  video : 'canPlayType' in document.createElement('video'),
+  // Check for support
+  // Basic functionality vs full UI
+  check : function check(type, provider, playsinline) {
+    var canPlayInline = browser.isIPhone && playsinline && support.playsinline;
+    var api = support[type] || provider !== 'html5';
+    var ui = api && support.rangeInput &&
+             (type !== 'video' || !browser.isIPhone || canPlayInline);
+    return {api : api, ui : ui};
+  },
+  // Picture-in-picture support
+  // Safari & Chrome only currently
+  pip : function() {
       if (browser.isIPhone) {
         return false;
       } // Safari

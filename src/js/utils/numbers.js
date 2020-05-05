@@ -14,4 +14,4 @@ export function clamp(input = 0, min = 0, max = 255) {
   return Math.min(Math.max(input, min), max);
 }
 
-export default {clamp};
+export default { clamp };

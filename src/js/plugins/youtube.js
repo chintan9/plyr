@@ -3,15 +3,15 @@
 // ==========================================================================
 
 import ui from '../ui';
-import {createElement, replaceElement, toggleClass} from '../utils/elements';
-import {triggerEvent} from '../utils/events';
+import { createElement, replaceElement, toggleClass } from '../utils/elements';
+import { triggerEvent } from '../utils/events';
 import fetch from '../utils/fetch';
 import is from '../utils/is';
 import loadImage from '../utils/load-image';
 import loadScript from '../utils/load-script';
-import {extend} from '../utils/objects';
-import {format, generateId} from '../utils/strings';
-import {setAspectRatio} from '../utils/style';
+import { extend } from '../utils/objects';
+import { format, generateId } from '../utils/strings';
+import { setAspectRatio } from '../utils/style';
 
 // Parse YouTube ID from URL
 function parseId(url) {
@@ -70,7 +70,7 @@ const youtube = {
       };
 
       // Load the SDK
-      loadScript(this.config.urls.youtube.sdk).catch(error => {
+      loadScript(this.config.urls.youtube.sdk).catch((error) => {
         this.debug.warn('YouTube API failed to load', error);
       });
     }
@@ -81,7 +81,7 @@ const youtube = {
     const url = format(this.config.urls.youtube.api, videoId);
 
     fetch(url)
-      .then(data => {
+      .then((data) => {
         if (is.object(data)) {
           const { title, height, width } = data;
 
@@ -128,14 +128,14 @@ const youtube = {
     player.media = replaceElement(container, player.media);
 
     // Id to poster wrapper
-    const posterSrc = s => `https://i.ytimg.com/vi/${videoId}/${s}default.jpg`;
+    const posterSrc = (s) => `https://i.ytimg.com/vi/${videoId}/${s}default.jpg`;
 
     // Check thumbnail images in order of quality, but reject fallback thumbnails (120px wide)
     loadImage(posterSrc('maxres'), 121) // Higest quality and unpadded
       .catch(() => loadImage(posterSrc('sd'), 121)) // 480p padded 4:3
       .catch(() => loadImage(posterSrc('hq'))) // 360p padded 4:3. Always exists
-      .then(image => ui.setPoster.call(player, image.src))
-      .then(src => {
+      .then((image) => ui.setPoster.call(player, image.src))
+      .then((src) => {
         // If the image is padded, use background-size "cover" instead (like youtube does too with their posters)
         if (!src.includes('maxres')) {
           player.elements.poster.style.backgroundSize = 'cover';
@@ -299,7 +299,7 @@ const youtube = {
           // Get available speeds
           const speeds = instance.getAvailablePlaybackRates();
           // Filter based on config
-          player.options.speed = speeds.filter(s => player.config.speed.options.includes(s));
+          player.options.speed = speeds.filter((s) => player.config.speed.options.includes(s));
 
           // Set the tabindex to avoid focus entering iframe
           if (player.supported.ui) {

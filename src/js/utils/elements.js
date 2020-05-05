@@ -3,34 +3,36 @@
 // ==========================================================================
 
 import is from './is';
-import {extend} from './objects';
+import { extend } from './objects';
 
 // Wrap an element
 export function wrap(elements, wrapper) {
   // Convert `elements` to an array, if necessary.
-  const targets = elements.length ? elements : [ elements ];
+  const targets = elements.length ? elements : [elements];
 
   // Loops backwards to prevent having to clone the wrapper on the
   // first element (see `child` below).
-  Array.from(targets).reverse().forEach((element, index) => {
-    const child = index > 0 ? wrapper.cloneNode(true) : wrapper;
-    // Cache the current parent and sibling.
-    const parent = element.parentNode;
-    const sibling = element.nextSibling;
+  Array.from(targets)
+    .reverse()
+    .forEach((element, index) => {
+      const child = index > 0 ? wrapper.cloneNode(true) : wrapper;
+      // Cache the current parent and sibling.
+      const parent = element.parentNode;
+      const sibling = element.nextSibling;
 
-    // Wrap the element (is automatically removed from its current
-    // parent).
-    child.appendChild(element);
+      // Wrap the element (is automatically removed from its current
+      // parent).
+      child.appendChild(element);
 
-    // If the element had a sibling, insert the wrapper before
-    // the sibling to maintain the HTML structure; otherwise, just
-    // append it to the parent.
-    if (sibling) {
-      parent.insertBefore(child, sibling);
-    } else {
-      parent.appendChild(child);
-    }
-  });
+      // If the element had a sibling, insert the wrapper before
+      // the sibling to maintain the HTML structure; otherwise, just
+      // append it to the parent.
+      if (sibling) {
+        parent.insertBefore(child, sibling);
+      } else {
+        parent.appendChild(child);
+      }
+    });
 }
 
 // Set attributes
@@ -42,8 +44,8 @@ export function setAttributes(element, attributes) {
   // Assume null and undefined attributes should be left out,
   // Setting them would otherwise convert them to "null" and "undefined"
   Object.entries(attributes)
-      .filter(([, value ]) => !is.nullOrUndefined(value))
-      .forEach(([ key, value ]) => element.setAttribute(key, value));
+    .filter(([, value]) => !is.nullOrUndefined(value))
+    .forEach(([key, value]) => element.setAttribute(key, value));
 }
 
 // Create a DocumentFragment
@@ -103,7 +105,7 @@ export function emptyElement(element) {
     return;
   }
 
-  let {length} = element.childNodes;
+  let { length } = element.childNodes;
 
   while (length > 0) {
     element.removeChild(element.lastChild);
@@ -113,8 +115,7 @@ export function emptyElement(element) {
 
 // Replace element
 export function replaceElement(newChild, oldChild) {
-  if (!is.element(oldChild) || !is.element(oldChild.parentNode) ||
-      !is.element(newChild)) {
+  if (!is.element(oldChild) || !is.element(oldChild.parentNode) || !is.element(newChild)) {
     return null;
   }
 
@@ -137,7 +138,7 @@ export function getAttributesFromSelector(sel, existingAttributes) {
   const attributes = {};
   const existing = extend({}, existingAttributes);
 
-  sel.split(',').forEach(s => {
+  sel.split(',').forEach((s) => {
     // Remove whitespace
     const selector = s.trim();
     const className = selector.replace('.', '');
@@ -150,28 +151,28 @@ export function getAttributesFromSelector(sel, existingAttributes) {
     const start = selector.charAt(0);
 
     switch (start) {
-    case '.':
-      // Add to existing classname
-      if (is.string(existing.class)) {
-        attributes.class = `${existing.class} ${className}`;
-      } else {
-        attributes.class = className;
-      }
-      break;
+      case '.':
+        // Add to existing classname
+        if (is.string(existing.class)) {
+          attributes.class = `${existing.class} ${className}`;
+        } else {
+          attributes.class = className;
+        }
+        break;
 
-    case '#':
-      // ID selector
-      attributes.id = selector.replace('#', '');
-      break;
+      case '#':
+        // ID selector
+        attributes.id = selector.replace('#', '');
+        break;
 
-    case '[':
-      // Attribute selector
-      attributes[key] = value;
+      case '[':
+        // Attribute selector
+        attributes[key] = value;
 
-      break;
+        break;
 
-    default:
-      break;
+      default:
+        break;
     }
   });
 
@@ -197,7 +198,7 @@ export function toggleHidden(element, hidden) {
 // Mirror Element.classList.toggle, with IE compatibility for "force" argument
 export function toggleClass(element, className, force) {
   if (is.nodeList(element)) {
-    return Array.from(element).map(e => toggleClass(e, className, force));
+    return Array.from(element).map((e) => toggleClass(e, className, force));
   }
 
   if (is.element(element)) {
@@ -220,30 +221,32 @@ export function hasClass(element, className) {
 
 // Element matches selector
 export function matches(element, selector) {
-  const {prototype} = Element;
+  const { prototype } = Element;
 
   function match() {
     return Array.from(document.querySelectorAll(selector)).includes(this);
   }
 
-  const method = prototype.matches || prototype.webkitMatchesSelector ||
-                 prototype.mozMatchesSelector || prototype.msMatchesSelector ||
-                 match;
+  const method =
+    prototype.matches ||
+    prototype.webkitMatchesSelector ||
+    prototype.mozMatchesSelector ||
+    prototype.msMatchesSelector ||
+    match;
 
   return method.call(element, selector);
 }
 
 // Closest ancestor element matching selector (also tests element itself)
 export function closest(element, selector) {
-  const {prototype} = Element;
+  const { prototype } = Element;
 
   // https://developer.mozilla.org/en-US/docs/Web/API/Element/closest#Polyfill
   function closestElement() {
     let el = this;
 
     do {
-      if (matches.matches(el, selector))
-        return el;
+      if (matches.matches(el, selector)) return el;
       el = el.parentElement || el.parentNode;
     } while (el !== null && el.nodeType === 1);
     return null;
@@ -271,7 +274,7 @@ export function setFocus(element = null, tabFocus = false) {
   }
 
   // Set regular focus
-  element.focus({preventScroll : true});
+  element.focus({ preventScroll: true });
 
   // If we want to mimic keyboard focus via tab
   if (tabFocus) {

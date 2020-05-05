@@ -21,9 +21,8 @@ import toggleClass from './toggle-class';
   // Sentry for demo site (https://plyr.io) only
   if (window.location.host === production) {
     Sentry.init({
-      dsn : 'https://d4ad9866ad834437a4754e23937071e4@sentry.io/305555',
-      whitelistUrls :
-          [ production ].map(d => new RegExp(`https://(([a-z0-9])+(.))*${d}`)),
+      dsn: 'https://d4ad9866ad834437a4754e23937071e4@sentry.io/305555',
+      whitelistUrls: [production].map((d) => new RegExp(`https://(([a-z0-9])+(.))*${d}`)),
     });
   }
 
@@ -32,42 +31,39 @@ import toggleClass from './toggle-class';
 
     // Setup share buttons
     Shr.setup('.js-shr', {
-      count : {
-        className : 'button__count',
+      count: {
+        className: 'button__count',
       },
-      wrapper : {
-        className : 'button--with-count',
+      wrapper: {
+        className: 'button--with-count',
       },
     });
 
     // Setup the player
     const player = new Plyr(selector, {
-      debug : true,
-      title : 'View From A Blue Moon',
-      iconUrl : 'dist/demo.svg',
-      keyboard : {
-        global : true,
+      debug: true,
+      title: 'View From A Blue Moon',
+      iconUrl: 'dist/demo.svg',
+      keyboard: {
+        global: true,
       },
-      tooltips : {
-        controls : true,
+      tooltips: {
+        controls: true,
       },
-      captions : {
-        active : true,
+      captions: {
+        active: true,
       },
-      ads : {
-        enabled : window.location.host.includes(production),
-        publisherId : '918848828995742',
+      ads: {
+        enabled: window.location.host.includes(production),
+        publisherId: '918848828995742',
       },
-      previewThumbnails : {
-        enabled : true,
-        src : [
-          'https://cdn.plyr.io/static/demo/thumbs/100p.vtt',
-          'https://cdn.plyr.io/static/demo/thumbs/240p.vtt'
-        ],
+      previewThumbnails: {
+        enabled: true,
+        src: ['https://cdn.plyr.io/static/demo/thumbs/100p.vtt', 'https://cdn.plyr.io/static/demo/thumbs/240p.vtt'],
       },
-      vimeo : {
+      vimeo: {
         // Prevent Vimeo blocking plyr.io demo site
-        referrerPolicy : 'no-referrer',
+        referrerPolicy: 'no-referrer',
       },
     });
 
@@ -83,15 +79,13 @@ import toggleClass from './toggle-class';
 
     function render(type) {
       // Remove active classes
-      Array.from(buttons).forEach(
-          button => toggleClass(button.parentElement, 'active', false));
+      Array.from(buttons).forEach((button) => toggleClass(button.parentElement, 'active', false));
 
       // Set active on parent
-      toggleClass(document.querySelector(`[data-source="${type}"]`), 'active',
-                  true);
+      toggleClass(document.querySelector(`[data-source="${type}"]`), 'active', true);
 
       // Show cite
-      Array.from(document.querySelectorAll('.plyr__cite')).forEach(cite => {
+      Array.from(document.querySelectorAll('.plyr__cite')).forEach((cite) => {
         // eslint-disable-next-line no-param-reassign
         cite.hidden = true;
       });
@@ -103,8 +97,7 @@ import toggleClass from './toggle-class';
     function setSource(type, init) {
       // Bail if new type isn't known, it's the current type, or current type is
       // empty (video is default) and new type is video
-      if (!types.includes(type) || (!init && type === currentType) ||
-          (!currentType.length && type === 'video')) {
+      if (!types.includes(type) || (!init && type === currentType) || (!currentType.length && type === 'video')) {
         return;
       }
 
@@ -118,20 +111,20 @@ import toggleClass from './toggle-class';
     }
 
     // Bind to each button
-    Array.from(buttons).forEach(button => {
+    Array.from(buttons).forEach((button) => {
       button.addEventListener('click', () => {
         const type = button.getAttribute('data-source');
 
         setSource(type);
 
         if (historySupport) {
-          window.history.pushState({type}, '', `#${type}`);
+          window.history.pushState({ type }, '', `#${type}`);
         }
       });
     });
 
     // List for backwards/forwards
-    window.addEventListener('popstate', event => {
+    window.addEventListener('popstate', (event) => {
       if (event.state && Object.keys(event.state).includes('type')) {
         setSource(event.state.type);
       }
@@ -144,8 +137,7 @@ import toggleClass from './toggle-class';
 
     // Replace current history state
     if (historySupport && types.includes(currentType)) {
-      window.history.replaceState({type : currentType}, '',
-                                  hasInitialType ? `#${currentType}` : '');
+      window.history.replaceState({ type: currentType }, '', hasInitialType ? `#${currentType}` : '');
     }
 
     // If it's not video, load the source

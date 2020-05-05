@@ -25,8 +25,9 @@ export default function fetch(url, responseType = 'text') {
         }
       });
 
-      request.addEventListener('error',
-                               () => { throw new Error(request.status); });
+      request.addEventListener('error', () => {
+        throw new Error(request.status);
+      });
 
       request.open('GET', url, true);
 

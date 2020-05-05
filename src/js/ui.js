@@ -6,18 +6,16 @@ import captions from './captions';
 import controls from './controls';
 import support from './support';
 import browser from './utils/browser';
-import {getElement, toggleClass} from './utils/elements';
-import {ready, triggerEvent} from './utils/events';
+import { getElement, toggleClass } from './utils/elements';
+import { ready, triggerEvent } from './utils/events';
 import i18n from './utils/i18n';
 import is from './utils/is';
 import loadImage from './utils/load-image';
 
 const ui = {
   addStyleHook() {
-    toggleClass(this.elements.container,
-                this.config.selectors.container.replace('.', ''), true);
-    toggleClass(this.elements.container, this.config.classNames.uiSupported,
-                this.supported.ui);
+    toggleClass(this.elements.container, this.config.selectors.container.replace('.', ''), true);
+    toggleClass(this.elements.container, this.config.classNames.uiSupported, this.supported.ui);
   },
 
   // Toggle native HTML5 media controls
@@ -89,29 +87,27 @@ const ui = {
 
     // Check for picture-in-picture support
     toggleClass(
-        this.elements.container,
-        this.config.classNames.pip.supported,
-        support.pip && this.isHTML5 && this.isVideo,
+      this.elements.container,
+      this.config.classNames.pip.supported,
+      support.pip && this.isHTML5 && this.isVideo,
     );
 
     // Check for airplay support
-    toggleClass(this.elements.container,
-                this.config.classNames.airplay.supported,
-                support.airplay && this.isHTML5);
+    toggleClass(this.elements.container, this.config.classNames.airplay.supported, support.airplay && this.isHTML5);
 
     // Add iOS class
-    toggleClass(this.elements.container, this.config.classNames.isIos,
-                browser.isIos);
+    toggleClass(this.elements.container, this.config.classNames.isIos, browser.isIos);
 
     // Add touch class
-    toggleClass(this.elements.container, this.config.classNames.isTouch,
-                this.touch);
+    toggleClass(this.elements.container, this.config.classNames.isTouch, this.touch);
 
     // Ready for API calls
     this.ready = true;
 
     // Ready event at end of execution stack
-    setTimeout(() => { triggerEvent.call(this, this.media, 'ready'); }, 0);
+    setTimeout(() => {
+      triggerEvent.call(this, this.media, 'ready');
+    }, 0);
 
     // Set the title
     ui.setTitle.call(this);
@@ -141,8 +137,9 @@ const ui = {
     }
 
     // If there's a play button, set label
-    Array.from(this.elements.buttons.play || [])
-        .forEach(button => { button.setAttribute('aria-label', label); });
+    Array.from(this.elements.buttons.play || []).forEach((button) => {
+      button.setAttribute('aria-label', label);
+    });
 
     // Set iframe title
     // https://github.com/sampotts/plyr/issues/124
@@ -163,8 +160,7 @@ const ui = {
 
   // Toggle poster
   togglePoster(enable) {
-    toggleClass(this.elements.container, this.config.classNames.posterEnabled,
-                enable);
+    toggleClass(this.elements.container, this.config.classNames.posterEnabled, enable);
   },
 
   // Set the poster image (async)
@@ -180,54 +176,51 @@ const ui = {
     this.media.setAttribute('data-poster', poster);
 
     // Wait until ui is ready
-    return (ready
-                .call(this)
-                // Load image
-                .then(() => loadImage(poster))
-                .catch(err => {
-                  // Hide poster on error unless it's been set by another call
-                  if (poster === this.poster) {
-                    ui.togglePoster.call(this, false);
-                  }
-                  // Rethrow
-                  throw err;
-                })
-                .then(() => {
-                  // Prevent race conditions
-                  if (poster !== this.poster) {
-                    throw new Error(
-                        'setPoster cancelled by later call to setPoster');
-                  }
-                })
-                .then(() => {
-                  Object.assign(this.elements.poster.style, {
-                    backgroundImage : `url('${poster}')`,
-                    // Reset backgroundSize as well (since it can be set to
-                    // "cover" for padded thumbnails for youtube)
-                    backgroundSize : '',
-                  });
+    return (
+      ready
+        .call(this)
+        // Load image
+        .then(() => loadImage(poster))
+        .catch((err) => {
+          // Hide poster on error unless it's been set by another call
+          if (poster === this.poster) {
+            ui.togglePoster.call(this, false);
+          }
+          // Rethrow
+          throw err;
+        })
+        .then(() => {
+          // Prevent race conditions
+          if (poster !== this.poster) {
+            throw new Error('setPoster cancelled by later call to setPoster');
+          }
+        })
+        .then(() => {
+          Object.assign(this.elements.poster.style, {
+            backgroundImage: `url('${poster}')`,
+            // Reset backgroundSize as well (since it can be set to
+            // "cover" for padded thumbnails for youtube)
+            backgroundSize: '',
+          });
 
-                  ui.togglePoster.call(this, true);
+          ui.togglePoster.call(this, true);
 
-                  return poster;
-                }));
+          return poster;
+        })
+    );
   },
 
   // Check playing state
   checkPlaying(event) {
     // Class hooks
-    toggleClass(this.elements.container, this.config.classNames.playing,
-                this.playing);
-    toggleClass(this.elements.container, this.config.classNames.paused,
-                this.paused);
-    toggleClass(this.elements.container, this.config.classNames.stopped,
-                this.stopped);
+    toggleClass(this.elements.container, this.config.classNames.playing, this.playing);
+    toggleClass(this.elements.container, this.config.classNames.paused, this.paused);
+    toggleClass(this.elements.container, this.config.classNames.stopped, this.stopped);
 
     // Set state
-    Array.from(this.elements.buttons.play || []).forEach(target => {
-      Object.assign(target, {pressed : this.playing});
-      target.setAttribute(
-          'aria-label', i18n.get(this.playing ? 'pause' : 'play', this.config));
+    Array.from(this.elements.buttons.play || []).forEach((target) => {
+      Object.assign(target, { pressed: this.playing });
+      target.setAttribute('aria-label', i18n.get(this.playing ? 'pause' : 'play', this.config));
     });
 
     // Only update controls on non timeupdate events
@@ -241,43 +234,40 @@ const ui = {
 
   // Check if media is loading
   checkLoading(event) {
-    this.loading = [ 'stalled', 'waiting' ].includes(event.type);
+    this.loading = ['stalled', 'waiting'].includes(event.type);
 
     // Clear timer
     clearTimeout(this.timers.loading);
 
     // Timer to prevent flicker when seeking
     this.timers.loading = setTimeout(
-        () => {
-          // Update progress bar loading class state
-          toggleClass(this.elements.container, this.config.classNames.loading,
-                      this.loading);
+      () => {
+        // Update progress bar loading class state
+        toggleClass(this.elements.container, this.config.classNames.loading, this.loading);
 
-          // Update controls visibility
-          ui.toggleControls.call(this);
-        },
-        this.loading ? 250 : 0,
+        // Update controls visibility
+        ui.toggleControls.call(this);
+      },
+      this.loading ? 250 : 0,
     );
   },
 
   // Toggle controls based on state and `force` argument
   toggleControls(force) {
-    const {controls : controlsElement} = this.elements;
+    const { controls: controlsElement } = this.elements;
 
     if (controlsElement && this.config.hideControls) {
       // Don't hide controls if a touch-device user recently seeked. (Must be
       // limited to touch devices, or it occasionally prevents desktop controls
       // from hiding.)
-      const recentTouchSeek =
-          this.touch && this.lastSeekTime + 2000 > Date.now();
+      const recentTouchSeek = this.touch && this.lastSeekTime + 2000 > Date.now();
 
       // Show controls if force, loading, paused, button interaction, or recent
       // seek, otherwise hide
       this.toggleControls(
-          Boolean(
-              force || this.loading || this.paused || controlsElement.pressed ||
-                  controlsElement.hover || recentTouchSeek,
-              ),
+        Boolean(
+          force || this.loading || this.paused || controlsElement.pressed || controlsElement.hover || recentTouchSeek,
+        ),
       );
     }
   },
@@ -285,18 +275,16 @@ const ui = {
   // Migrate any custom properties from the media to the parent
   migrateStyles() {
     // Loop through values (as they are the keys when the object is spread 🤔)
-    Object
-        .values({...this.media.style})
-        // We're only fussed about Plyr specific properties
-        .filter(key => !is.empty(key) && key.startsWith('--plyr'))
-        .forEach(key => {
-          // Set on the container
-          this.elements.container.style.setProperty(
-              key, this.media.style.getPropertyValue(key));
+    Object.values({ ...this.media.style })
+      // We're only fussed about Plyr specific properties
+      .filter((key) => !is.empty(key) && key.startsWith('--plyr'))
+      .forEach((key) => {
+        // Set on the container
+        this.elements.container.style.setProperty(key, this.media.style.getPropertyValue(key));
 
-          // Clean up from media element
-          this.media.style.removeProperty(key);
-        });
+        // Clean up from media element
+        this.media.style.removeProperty(key);
+      });
 
     // Remove attribute if empty
     if (is.empty(this.media.style)) {

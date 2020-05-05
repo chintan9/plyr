@@ -11,4 +11,4 @@ export function silencePromise(value) {
   }
 }
 
-export default {silencePromise};
+export default { silencePromise };

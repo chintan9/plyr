@@ -3,7 +3,7 @@
 // ==========================================================================
 
 import is from './utils/is';
-import {extend} from './utils/objects';
+import { extend } from './utils/objects';
 
 class Storage {
   constructor(player) {

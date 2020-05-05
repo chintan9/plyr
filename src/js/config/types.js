@@ -3,14 +3,14 @@
 // ==========================================================================
 
 export const providers = {
-  html5 : 'html5',
-  youtube : 'youtube',
-  vimeo : 'vimeo',
+  html5: 'html5',
+  youtube: 'youtube',
+  vimeo: 'vimeo',
 };
 
 export const types = {
-  audio : 'audio',
-  video : 'video',
+  audio: 'audio',
+  video: 'video',
 };
 
 /**
@@ -19,8 +19,7 @@ export const types = {
  */
 export function getProviderByUrl(url) {
   // YouTube
-  if (/^(https?:\/\/)?(www\.)?(youtube\.com|youtube-nocookie\.com|youtu\.?be)\/.+$/
-          .test(url)) {
+  if (/^(https?:\/\/)?(www\.)?(youtube\.com|youtube-nocookie\.com|youtu\.?be)\/.+$/.test(url)) {
     return providers.youtube;
   }
 
@@ -32,4 +31,4 @@ export function getProviderByUrl(url) {
   return null;
 }
 
-export default {providers, types};
+export default { providers, types };

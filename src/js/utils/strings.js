@@ -20,7 +20,8 @@ export function format(input, ...args) {
 
 // Get percentage
 export function getPercentage(current, max) {
-  if (current === 0 || max === 0 || Number.isNaN(current) || Number.isNaN(max)) {
+  if (current === 0 || max === 0 || Number.isNaN(current) ||
+      Number.isNaN(max)) {
     return 0;
   }
 
@@ -29,11 +30,15 @@ export function getPercentage(current, max) {
 
 // Replace all occurances of a string in a string
 export const replaceAll = (input = '', find = '', replace = '') =>
-  input.replace(new RegExp(find.toString().replace(/([.*+?^=!:${}()|[\]/\\])/g, '\\$1'), 'g'), replace.toString());
+    input.replace(
+        new RegExp(find.toString().replace(/([.*+?^=!:${}()|[\]/\\])/g, '\\$1'),
+                   'g'),
+        replace.toString());
 
 // Convert to title case
 export const toTitleCase = (input = '') =>
-  input.toString().replace(/\w\S*/g, text => text.charAt(0).toUpperCase() + text.substr(1).toLowerCase());
+    input.toString().replace(/\w\S*/g, text => text.charAt(0).toUpperCase() +
+                                               text.substr(1).toLowerCase());
 
 // Convert string to pascalCase
 export function toPascalCase(input = '') {

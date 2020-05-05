@@ -19,5 +19,7 @@ export function closest(array, value) {
     return null;
   }
 
-  return array.reduce((prev, curr) => (Math.abs(curr - value) < Math.abs(prev - value) ? curr : prev));
+  return array.reduce(
+      (prev, curr) =>
+          (Math.abs(curr - value) < Math.abs(prev - value) ? curr : prev));
 }

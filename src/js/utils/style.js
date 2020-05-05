@@ -23,11 +23,12 @@ export function reduceAspectRatio(ratio) {
   const getDivider = (w, h) => (h === 0 ? w : getDivider(h, w % h));
   const divider = getDivider(width, height);
 
-  return [width / divider, height / divider];
+  return [ width / divider, height / divider ];
 }
 
 export function getAspectRatio(input) {
-  const parse = ratio => (validateRatio(ratio) ? ratio.split(':').map(Number) : null);
+  const parse = ratio =>
+      (validateRatio(ratio) ? ratio.split(':').map(Number) : null);
   // Try provided ratio
   let ratio = parse(input);
 
@@ -38,13 +39,13 @@ export function getAspectRatio(input) {
 
   // Get from embed
   if (ratio === null && !is.empty(this.embed) && is.array(this.embed.ratio)) {
-    ({ ratio } = this.embed);
+    ({ratio} = this.embed);
   }
 
   // Get from HTML5 video
   if (ratio === null && this.isHTML5) {
-    const { videoWidth, videoHeight } = this.media;
-    ratio = reduceAspectRatio([videoWidth, videoHeight]);
+    const {videoWidth, videoHeight} = this.media;
+    ratio = reduceAspectRatio([ videoWidth, videoHeight ]);
   }
 
   return ratio;
@@ -56,24 +57,27 @@ export function setAspectRatio(input) {
     return {};
   }
 
-  const { wrapper } = this.elements;
+  const {wrapper} = this.elements;
   const ratio = getAspectRatio.call(this, input);
-  const [w, h] = is.array(ratio) ? ratio : [0, 0];
+  const [w, h] = is.array(ratio) ? ratio : [ 0, 0 ];
   const padding = (100 / w) * h;
 
   wrapper.style.paddingBottom = `${padding}%`;
 
   // For Vimeo we have an extra <div> to hide the standard controls and UI
   if (this.isVimeo && !this.config.vimeo.premium && this.supported.ui) {
-    const height = (100 / this.media.offsetWidth) * parseInt(window.getComputedStyle(this.media).paddingBottom, 10);
+    const height =
+        (100 / this.media.offsetWidth) *
+        parseInt(window.getComputedStyle(this.media).paddingBottom, 10);
     const offset = (height - padding) / (height / 50);
 
     this.media.style.transform = `translateY(-${offset}%)`;
   } else if (this.isHTML5) {
-    wrapper.classList.toggle(this.config.classNames.videoFixedRatio, ratio !== null);
+    wrapper.classList.toggle(this.config.classNames.videoFixedRatio,
+                             ratio !== null);
   }
 
-  return { padding, ratio };
+  return {padding, ratio};
 }
 
-export default { setAspectRatio };
+export default {setAspectRatio};

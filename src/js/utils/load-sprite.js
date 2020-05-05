@@ -54,22 +54,22 @@ export default function loadSprite(url, id) {
 
     // Get the sprite
     fetch(url)
-      .then(result => {
-        if (is.empty(result)) {
-          return;
-        }
+        .then(result => {
+          if (is.empty(result)) {
+            return;
+          }
 
-        if (useStorage) {
-          window.localStorage.setItem(
-            `${prefix}-${id}`,
-            JSON.stringify({
-              content: result,
-            }),
-          );
-        }
+          if (useStorage) {
+            window.localStorage.setItem(
+                `${prefix}-${id}`,
+                JSON.stringify({
+                  content : result,
+                }),
+            );
+          }
 
-        update(container, result);
-      })
-      .catch(() => {});
+          update(container, result);
+        })
+        .catch(() => {});
   }
 }

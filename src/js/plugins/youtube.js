@@ -3,15 +3,15 @@
 // ==========================================================================
 
 import ui from '../ui';
-import { createElement, replaceElement, toggleClass } from '../utils/elements';
-import { triggerEvent } from '../utils/events';
+import {createElement, replaceElement, toggleClass} from '../utils/elements';
+import {triggerEvent} from '../utils/events';
 import fetch from '../utils/fetch';
 import is from '../utils/is';
 import loadImage from '../utils/load-image';
 import loadScript from '../utils/load-script';
-import { extend } from '../utils/objects';
-import { format, generateId } from '../utils/strings';
-import { setAspectRatio } from '../utils/style';
+import {extend} from '../utils/objects';
+import {format, generateId} from '../utils/strings';
+import {setAspectRatio} from '../utils/style';
 
 // Parse YouTube ID from URL
 function parseId(url) {

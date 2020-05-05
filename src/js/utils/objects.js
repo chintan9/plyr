@@ -5,9 +5,7 @@
 import is from './is';
 
 // Clone nested objects
-export function cloneDeep(object) {
-  return JSON.parse(JSON.stringify(object));
-}
+export function cloneDeep(object) { return JSON.parse(JSON.stringify(object)); }
 
 // Get a nested value in an object
 export function getDeep(object, path) {
@@ -29,12 +27,12 @@ export function extend(target = {}, ...sources) {
   Object.keys(source).forEach(key => {
     if (is.object(source[key])) {
       if (!Object.keys(target).includes(key)) {
-        Object.assign(target, { [key]: {} });
+        Object.assign(target, {[key] : {}});
       }
 
       extend(target[key], source[key]);
     } else {
-      Object.assign(target, { [key]: source[key] });
+      Object.assign(target, {[key] : source[key]});
     }
   });
 

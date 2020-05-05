@@ -3,16 +3,16 @@
 // ==========================================================================
 
 import is from './is';
-import { getDeep } from './objects';
-import { replaceAll } from './strings';
+import {getDeep} from './objects';
+import {replaceAll} from './strings';
 
 // Skip i18n for abbreviations and brand names
 const resources = {
-  pip: 'PIP',
-  airplay: 'AirPlay',
-  html5: 'HTML5',
-  vimeo: 'Vimeo',
-  youtube: 'YouTube',
+  pip : 'PIP',
+  airplay : 'AirPlay',
+  html5 : 'HTML5',
+  vimeo : 'Vimeo',
+  youtube : 'YouTube',
 };
 
 const i18n = {
@@ -32,13 +32,12 @@ const i18n = {
     }
 
     const replace = {
-      '{seektime}': config.seekTime,
-      '{title}': config.title,
+      '{seektime}' : config.seekTime,
+      '{title}' : config.title,
     };
 
-    Object.entries(replace).forEach(([k, v]) => {
-      string = replaceAll(string, k, v);
-    });
+    Object.entries(replace).forEach(
+        ([ k, v ]) => { string = replaceAll(string, k, v); });
 
     return string;
   },

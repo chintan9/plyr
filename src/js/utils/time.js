@@ -31,5 +31,6 @@ export function formatTime(time = 0, displayHours = false, inverted = false) {
   }
 
   // Render
-  return `${inverted && time > 0 ? '-' : ''}${hours}${format(mins)}:${format(secs)}`;
+  return `${inverted && time > 0 ? '-' : ''}${hours}${format(mins)}:${
+      format(secs)}`;
 }

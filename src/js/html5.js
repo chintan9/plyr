@@ -3,11 +3,11 @@
 // ==========================================================================
 
 import support from './support';
-import { removeElement } from './utils/elements';
-import { triggerEvent } from './utils/events';
+import {removeElement} from './utils/elements';
+import {triggerEvent} from './utils/events';
 import is from './utils/is';
-import { silencePromise } from './utils/promise';
-import { setAspectRatio } from './utils/style';
+import {silencePromise} from './utils/promise';
+import {setAspectRatio} from './utils/style';
 
 const html5 = {
   getSources() {
@@ -37,10 +37,9 @@ const html5 = {
     }
 
     // Get sizes from <source> elements
-    return html5.getSources
-      .call(this)
-      .map(source => Number(source.getAttribute('size')))
-      .filter(Boolean);
+    return html5.getSources.call(this)
+        .map(source => Number(source.getAttribute('size')))
+        .filter(Boolean);
   },
 
   setup() {
@@ -61,60 +60,63 @@ const html5 = {
     // Quality
     Object.defineProperty(player.media, 'quality', {
       get() {
-        // Get sources
-        const sources = html5.getSources.call(player);
-        const source = sources.find(s => s.getAttribute('src') === player.source);
+    // Get sources
+    const sources = html5.getSources.call(player);
+    const source = sources.find(s => s.getAttribute('src') === player.source);
 
-        // Return size, if match is found
-        return source && Number(source.getAttribute('size'));
+    // Return size, if match is found
+    return source && Number(source.getAttribute('size'));
       },
       set(input) {
-        if (player.quality === input) {
+    if (player.quality === input) {
+      return;
+    }
+
+    // If we're using an an external handler...
+        if (player.config.quality.forced && is.function(player.config.quality.onChange))
+      { player.config.quality.onChange(input); }
+      else {
+        // Get sources
+        const sources = html5.getSources.call(player);
+        // Get first match for requested size
+        const source =
+            sources.find(s => Number(s.getAttribute('size')) === input);
+
+        // No matching source found
+        if (!source) {
           return;
         }
 
-        // If we're using an an external handler...
-        if (player.config.quality.forced && is.function(player.config.quality.onChange)) {
-          player.config.quality.onChange(input);
-        } else {
-          // Get sources
-          const sources = html5.getSources.call(player);
-          // Get first match for requested size
-          const source = sources.find(s => Number(s.getAttribute('size')) === input);
+        // Get current state
+        const {currentTime, paused, preload, readyState, playbackRate} =
+            player.media;
 
-          // No matching source found
-          if (!source) {
-            return;
-          }
+        // Set new source
+        player.media.src = source.getAttribute('src');
 
-          // Get current state
-          const { currentTime, paused, preload, readyState, playbackRate } = player.media;
+        // Prevent loading if preload="none" and the current source isn't loaded
+        // (#1044)
+        if (preload !== 'none' || readyState) {
+          // Restore time
+          player.once('loadedmetadata', () => {
+            player.speed = playbackRate;
+            player.currentTime = currentTime;
 
-          // Set new source
-          player.media.src = source.getAttribute('src');
+            // Resume playing
+            if (!paused) {
+              silencePromise(player.play());
+            }
+          });
 
-          // Prevent loading if preload="none" and the current source isn't loaded (#1044)
-          if (preload !== 'none' || readyState) {
-            // Restore time
-            player.once('loadedmetadata', () => {
-              player.speed = playbackRate;
-              player.currentTime = currentTime;
-
-              // Resume playing
-              if (!paused) {
-                silencePromise(player.play());
-              }
-            });
-
-            // Load new source
-            player.media.load();
-          }
+          // Load new source
+          player.media.load();
         }
+      }
 
-        // Trigger change event
-        triggerEvent.call(player, player.media, 'qualitychange', false, {
-          quality: input,
-        });
+      // Trigger change event
+      triggerEvent.call(player, player.media, 'qualitychange', false, {
+        quality : input,
+      });
       },
     });
   },
@@ -131,7 +133,8 @@ const html5 = {
 
     // Set blank video src attribute
     // This is to prevent a MEDIA_ERR_SRC_NOT_SUPPORTED error
-    // Info: http://stackoverflow.com/questions/32231579/how-to-properly-dispose-of-an-html5-video-and-close-socket-or-connection
+    // Info:
+    // http://stackoverflow.com/questions/32231579/how-to-properly-dispose-of-an-html5-video-and-close-socket-or-connection
     this.media.setAttribute('src', this.config.blankVideo);
 
     // Load the new empty source
@@ -142,6 +145,6 @@ const html5 = {
     // Debugging
     this.debug.log('Cancelled network requests');
   },
-};
+  };
 
-export default html5;
+  export default html5;

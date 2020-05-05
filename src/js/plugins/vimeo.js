@@ -5,14 +5,14 @@
 import captions from '../captions';
 import controls from '../controls';
 import ui from '../ui';
-import { createElement, replaceElement, toggleClass } from '../utils/elements';
-import { triggerEvent } from '../utils/events';
+import {createElement, replaceElement, toggleClass} from '../utils/elements';
+import {triggerEvent} from '../utils/events';
 import fetch from '../utils/fetch';
 import is from '../utils/is';
 import loadScript from '../utils/load-script';
-import { format, stripHTML } from '../utils/strings';
-import { setAspectRatio } from '../utils/style';
-import { buildUrlParams } from '../utils/urls';
+import {format, stripHTML} from '../utils/strings';
+import {setAspectRatio} from '../utils/style';
+import {buildUrlParams} from '../utils/urls';
 
 // Parse Vimeo ID from URL
 function parseId(url) {
@@ -55,12 +55,10 @@ const vimeo = {
     // Load the SDK if not already
     if (!is.object(window.Vimeo)) {
       loadScript(player.config.urls.vimeo.sdk)
-        .then(() => {
-          vimeo.ready.call(player);
-        })
-        .catch(error => {
-          player.debug.warn('Vimeo SDK (player.js) failed to load', error);
-        });
+          .then(() => { vimeo.ready.call(player); })
+          .catch(error => {
+            player.debug.warn('Vimeo SDK (player.js) failed to load', error);
+          });
     } else {
       vimeo.ready.call(player);
     }
@@ -70,23 +68,23 @@ const vimeo = {
   ready() {
     const player = this;
     const config = player.config.vimeo;
-    const { premium, referrerPolicy, ...frameParams } = config;
+    const {premium, referrerPolicy, ...frameParams} = config;
 
     // If the owner has a pro or premium account then we can hide controls etc
     if (premium) {
       Object.assign(frameParams, {
-        controls: false,
-        sidedock: false,
+        controls : false,
+        sidedock : false,
       });
     }
 
     // Get Vimeo params for the iframe
     const params = buildUrlParams({
-      loop: player.config.loop.active,
-      autoplay: player.autoplay,
-      muted: player.muted,
-      gesture: 'media',
-      playsinline: !this.config.fullscreen.iosNative,
+      loop : player.config.loop.active,
+      autoplay : player.autoplay,
+      muted : player.muted,
+      gesture : 'media',
+      playsinline : !this.config.fullscreen.iosNative,
       ...frameParams,
     });
 
@@ -112,12 +110,15 @@ const vimeo = {
     }
 
     // Inject the package
-    const { poster } = player;
+    const {poster} = player;
     if (premium) {
       iframe.setAttribute('data-poster', poster);
       player.media = replaceElement(iframe, player.media);
     } else {
-      const wrapper = createElement('div', { class: player.config.classNames.embedContainer, 'data-poster': poster });
+      const wrapper = createElement('div', {
+        class : player.config.classNames.embedContainer,
+        'data-poster' : poster
+      });
       wrapper.appendChild(iframe);
       player.media = replaceElement(wrapper, player.media);
     }
@@ -141,8 +142,8 @@ const vimeo = {
     // Setup instance
     // https://github.com/vimeo/player.js
     player.embed = new window.Vimeo.Player(iframe, {
-      autopause: player.config.autopause,
-      muted: player.muted,
+      autopause : player.config.autopause,
+      muted : player.muted,
     });
 
     player.media.paused = true;
@@ -170,16 +171,15 @@ const vimeo = {
     };
 
     // Seeking
-    let { currentTime } = player.media;
+    let {currentTime} = player.media;
     Object.defineProperty(player.media, 'currentTime', {
-      get() {
-        return currentTime;
-      },
+      get() { return currentTime; },
       set(time) {
-        // Vimeo will automatically play on seek if the video hasn't been played before
+        // Vimeo will automatically play on seek if the video hasn't been played
+        // before
 
         // Get current paused state and volume etc
-        const { embed, media, paused, volume } = player;
+        const {embed, media, paused, volume} = player;
         const restorePause = paused && !embed.hasPlayed;
 
         // Set seeking state and trigger event
@@ -187,45 +187,41 @@ const vimeo = {
         triggerEvent.call(player, media, 'seeking');
 
         // If paused, mute until seek is complete
-        Promise.resolve(restorePause && embed.setVolume(0))
-          // Seek
-          .then(() => embed.setCurrentTime(time))
-          // Restore paused
-          .then(() => restorePause && embed.pause())
-          // Restore volume
-          .then(() => restorePause && embed.setVolume(volume))
-          .catch(() => {
-            // Do nothing
-          });
+        Promise
+            .resolve(restorePause && embed.setVolume(0))
+            // Seek
+            .then(() => embed.setCurrentTime(time))
+            // Restore paused
+            .then(() => restorePause && embed.pause())
+            // Restore volume
+            .then(() => restorePause && embed.setVolume(volume))
+            .catch(() => {
+                       // Do nothing
+                   });
       },
     });
 
     // Playback speed
     let speed = player.config.speed.selected;
     Object.defineProperty(player.media, 'playbackRate', {
-      get() {
-        return speed;
-      },
+      get() { return speed; },
       set(input) {
-        player.embed
-          .setPlaybackRate(input)
-          .then(() => {
-            speed = input;
-            triggerEvent.call(player, player.media, 'ratechange');
-          })
-          .catch(() => {
-            // Cannot set Playback Rate, Video is probably not on Pro account
-            player.options.speed = [1];
-          });
+        player.embed.setPlaybackRate(input)
+            .then(() => {
+              speed = input;
+              triggerEvent.call(player, player.media, 'ratechange');
+            })
+            .catch(() => {
+              // Cannot set Playback Rate, Video is probably not on Pro account
+              player.options.speed = [ 1 ];
+            });
       },
     });
 
     // Volume
-    let { volume } = player.config;
+    let {volume} = player.config;
     Object.defineProperty(player.media, 'volume', {
-      get() {
-        return volume;
-      },
+      get() { return volume; },
       set(input) {
         player.embed.setVolume(input).then(() => {
           volume = input;
@@ -235,11 +231,9 @@ const vimeo = {
     });
 
     // Muted
-    let { muted } = player.config;
+    let {muted} = player.config;
     Object.defineProperty(player.media, 'muted', {
-      get() {
-        return muted;
-      },
+      get() { return muted; },
       set(input) {
         const toggle = is.boolean(input) ? input : false;
 
@@ -251,56 +245,45 @@ const vimeo = {
     });
 
     // Loop
-    let { loop } = player.config;
+    let {loop} = player.config;
     Object.defineProperty(player.media, 'loop', {
-      get() {
-        return loop;
-      },
+      get() { return loop; },
       set(input) {
         const toggle = is.boolean(input) ? input : player.config.loop.active;
 
-        player.embed.setLoop(toggle).then(() => {
-          loop = toggle;
-        });
+        player.embed.setLoop(toggle).then(() => { loop = toggle; });
       },
     });
 
     // Source
     let currentSrc;
-    player.embed
-      .getVideoUrl()
-      .then(value => {
-        currentSrc = value;
-        controls.setDownloadUrl.call(player);
-      })
-      .catch(error => {
-        this.debug.warn(error);
-      });
+    player.embed.getVideoUrl()
+        .then(value => {
+          currentSrc = value;
+          controls.setDownloadUrl.call(player);
+        })
+        .catch(error => { this.debug.warn(error); });
 
     Object.defineProperty(player.media, 'currentSrc', {
-      get() {
-        return currentSrc;
-      },
+      get() { return currentSrc; },
     });
 
     // Ended
     Object.defineProperty(player.media, 'ended', {
-      get() {
-        return player.currentTime === player.duration;
-      },
+      get() { return player.currentTime === player.duration; },
     });
 
     // Set aspect ratio based on video size
-    Promise.all([player.embed.getVideoWidth(), player.embed.getVideoHeight()]).then(dimensions => {
-      const [width, height] = dimensions;
-      player.embed.ratio = [width, height];
-      setAspectRatio.call(this);
-    });
+    Promise.all([ player.embed.getVideoWidth(), player.embed.getVideoHeight() ])
+        .then(dimensions => {
+          const [width, height] = dimensions;
+          player.embed.ratio = [ width, height ];
+          setAspectRatio.call(this);
+        });
 
     // Set autopause
-    player.embed.setAutopause(player.config.autopause).then(state => {
-      player.config.autopause = state;
-    });
+    player.embed.setAutopause(player.config.autopause)
+        .then(state => { player.config.autopause = state; });
 
     // Get title
     player.embed.getVideoTitle().then(title => {
@@ -326,7 +309,7 @@ const vimeo = {
       captions.setup.call(player);
     });
 
-    player.embed.on('cuechange', ({ cues = [] }) => {
+    player.embed.on('cuechange', ({cues = []}) => {
       const strippedCues = cues.map(cue => stripHTML(cue.text));
       captions.updateCues.call(player, strippedCues);
     });
@@ -349,22 +332,21 @@ const vimeo = {
       }
     });
 
-    player.embed.on('bufferstart', () => {
-      triggerEvent.call(player, player.media, 'waiting');
-    });
+    player.embed.on(
+        'bufferstart',
+        () => { triggerEvent.call(player, player.media, 'waiting'); });
 
-    player.embed.on('bufferend', () => {
-      triggerEvent.call(player, player.media, 'playing');
-    });
+    player.embed.on(
+        'bufferend',
+        () => { triggerEvent.call(player, player.media, 'playing'); });
 
     player.embed.on('play', () => {
       assurePlaybackState.call(player, true);
       triggerEvent.call(player, player.media, 'playing');
     });
 
-    player.embed.on('pause', () => {
-      assurePlaybackState.call(player, false);
-    });
+    player.embed.on('pause',
+                    () => { assurePlaybackState.call(player, false); });
 
     player.embed.on('timeupdate', data => {
       player.media.seeking = false;

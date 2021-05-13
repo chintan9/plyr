@@ -56,7 +56,7 @@
     "gulp": "^4.0.2",
     "gulp-awspublish": "^4.1.2",
     "gulp-better-rollup": "^4.0.1",
-    "gulp-filter": "^6.0.0",
+    "gulp-filter": "^7.0.0",
     "gulp-header": "^2.0.9",
     "gulp-hub": "^4.2.0",
     "gulp-if": "^3.0.0",
